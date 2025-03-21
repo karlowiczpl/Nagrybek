@@ -32,5 +32,9 @@ class Start:
             self._active_dialog = self._dialog.draw()
 
     def key(self, key):
-        if key[pygame.K_SPACE]:
+        if key[pygame.K_w]:
             self._player.jump()
+        if key[pygame.K_d]:
+            self._player.walk_left()
+        if key[pygame.K_a]:
+            self._player.walk_right()
