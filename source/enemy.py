@@ -9,11 +9,10 @@ from const import(
     CONF_PLAYER_WIDTH,
 )
 
-class Player(Movment):
-    def __init__(self, window):
-        self._x = 50
-        
-        self._y = 400
+class Enemy(Movment):
+    def __init__(self, window, x, y):
+        self._x = x
+        self._y = y
         self._win = window
         self._left = False
         self._right = False
@@ -39,6 +38,14 @@ class Player(Movment):
             self._bullets.append(Bullet(self._x, self._y, self._win, self._left))
             self._bullet_delay = 0
             self._enemy = enemy
+            
+            
+    def move_towards_target(self, target_x, target_y):
+        # Sprawdzamy, w którą stronę AI ma się ruszyć w osi X
+        if self.x < target_x:
+            self.walk_right()
+        elif self.x > target_x:
+            self.walk_left()
 
     def draw(self):
         self._hp.draw()
@@ -76,13 +83,7 @@ class Player(Movment):
         self._after_jump += 1
         self._bullet_delay += 1
         
-        if self._dodge is True:
-            print("dodging")
-            self._dodge_counter += 1
-        
-        if self._dodge_counter == 5 and self._dodge is True:
-            self._dodge = False
-            self._dodge_counter = 0
+
             
         
             

@@ -43,8 +43,12 @@ class Movment:
             self._x += 5
             self._motion_counter += 1
 
-    def dogge(self):
-        self._hitbox = (0,0,0,0)
+    def dodge(self):
+        if self.dodge is False: 
+            self._hitbox = (0,0,0,0)
+            self.dodge = True
+        if self.dodge is True:
+            self._hitbox = (self._x + 20 , self._y, 28, 60)
 
     def stand(self):
         self._left = False
@@ -54,3 +58,14 @@ class Movment:
         if self._after_jump > 40:
             self._jump = True
             self._after_jump = 0
+
+    def dodge(self):
+        print(self._dodge)
+        if self._dodge is False:
+            self._hitbox = (0,0,0,0)
+            self._dodge = True
+            print("B")
+        else:
+            self._hitbox = (self._x + 20 , self._y, 28, 60)
+            print("C")
+            

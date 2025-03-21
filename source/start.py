@@ -17,10 +17,11 @@ class button:
         pass
 
 class Start:
-    def __init__(self, window, player):
+    def __init__(self, window, player, enemies):
         self._win = window
         self._info = pygame.display.Info()
         self._player = player
+        self.enemies = enemies
         self._dialog = Dialog(sample_dialog, "RIPPER", self._win)
         self._active_dialog = True
 
@@ -28,6 +29,9 @@ class Start:
         background = pygame.transform.scale(bg, (self._info.current_w,self._info.current_h))
         self._win.blit(background, (0,0))
         self._player.draw()
+        
+        for i in self.enemies:
+            i.draw()
         if self._active_dialog:
             self._active_dialog = self._dialog.draw()
 
@@ -38,5 +42,8 @@ class Start:
             self._player.walk_left()
         elif key[pygame.K_a]:
             self._player.walk_right()
+        elif key[pygame.K_q]:
+            print("pressed Q")
+            self._player.dodge()
         else:
             self._player.stand()
