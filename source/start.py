@@ -28,7 +28,6 @@ class Start:
         self._win.blit(background, (0,0))
         self._player.draw()
         self._dialog.draw()
-        
 
     def key(self, key):
         if key[pygame.K_SPACE]:
