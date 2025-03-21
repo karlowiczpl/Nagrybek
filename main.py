@@ -1,6 +1,7 @@
 import pygame
 from source.start import Start
 from source.player import Player
+from source.fight import Fight
 
 pygame.init()
 
@@ -8,7 +9,9 @@ pygame.init()
 window = pygame.display.set_mode()
 player = Player(window)
 
-start = Start(window, player)
+selected_object = None
+
+start = Start(window, player, selected_object)
 
 selected_object = start
 
@@ -23,10 +26,9 @@ while isRun:
 
     key = pygame.key.get_pressed()
     selected_object.key(key)
-
-    selected_object.draw()
+    
+    if not selected_object.draw():
+        selected_object = Fight(window, player)
 
     pygame.display.update()
 
-def stop_start():
-    selected_object = Start()

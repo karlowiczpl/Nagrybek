@@ -5,6 +5,7 @@ from const import (
     main_font,
 )
 from .dialogue import Dialog
+from .fight import Fight
 
 class Button:
     def __init__(self, x, y, text, color, window, border_radius=10):
@@ -24,7 +25,6 @@ class Button:
         factor = 0.2
         self._color_2 = (int(color[0] * factor), int(color[1] * factor), int(color[2] * factor))
 
-    
     def draw(self):
         self.update()
         if self._clicked:
@@ -48,7 +48,8 @@ class Button:
             self._clicked = False
 
 class Start:
-    def __init__(self, window, player):
+    def __init__(self, window, player, ptr):
+        self._ptr = ptr
         self._win = window
         self._info = pygame.display.Info()
         self._player = player
@@ -71,8 +72,8 @@ class Start:
             for button in self._button:
                 button.draw()
         else:
-            if self._dialog_count > len(self._dialog):
-                stop_start()
+            if self._dialog_count >= len(self._dialog):
+                return False
 
             background = pygame.transform.scale(bg, (self._info.current_w,self._info.current_h))
             self._win.blit(background, (0,0))

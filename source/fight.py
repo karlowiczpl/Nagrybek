@@ -9,12 +9,12 @@ dl1 = "Nie wiem, kim jesteś, ale jeśli myślisz, że mnie pokonasz, to się gr
 dl2 = "Ha! Tylko ty to widzisz. Myślisz, że jeden człowiek może powstrzymać całą armię? Zobaczymy, jak długo wytrzymasz."
 dl3 = "Nie jestem sam. Moje serce bije dla tych, których chronię. A ty? Jesteś tylko pionkiem w grze, której nie rozumiesz."
 
-class Start:
+class Fight:
     def __init__(self, window, player):
         self._win = window
         self._info = pygame.display.Info()
         self._player = player
-        self._dialog = Dialog(sample_dialog, "RIPPER", self._win)
+        self._dialog = Dialog(dl1, "RIPPER", self._win)
         self._active_dialog = True
 
     def draw(self):
