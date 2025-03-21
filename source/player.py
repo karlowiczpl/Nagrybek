@@ -1,5 +1,7 @@
 import pygame
 
+from .hp import Hp
+
 from const import(
     CONF_PLAYER_HEIGHT,
     CONF_PLAYER_WIDTH,
@@ -67,6 +69,7 @@ class Player:
         for item in self.walkRightx:
             self.walkRight.append(pygame.transform.scale(item, (CONF_PLAYER_WIDTH,CONF_PLAYER_HEIGHT)))
         self.standing = pygame.transform.scale(self.standing, (CONF_PLAYER_WIDTH,CONF_PLAYER_HEIGHT))
+        self._hp = Hp(window, 100, 100)
 
     def walk_left(self):
         if self._x > 0:
@@ -84,6 +87,9 @@ class Player:
             self._x += 5
             self._motion_counter += 1
 
+    def dogge(self):
+        self._hitbox = (0,0,0,0)
+
     def stand(self):
         self._left = False
         self._right = False
@@ -100,6 +106,7 @@ class Player:
             self._enemy = enemy
 
     def draw(self):
+        self._hp.draw()
         if self._jump:
             if self._jump_counter > 0:
                 self._y += (self._jump_counter**2) / 2
