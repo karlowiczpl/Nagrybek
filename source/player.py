@@ -12,8 +12,7 @@ from const import(
 class Player(Movment):
     def __init__(self, window):
         self._x = 50
-        
-        self._y = 400
+        self._y = 600
         self._win = window
         self._left = False
         self._right = False
@@ -44,9 +43,9 @@ class Player(Movment):
         self._hp.draw()
         if self._jump:
             if self._jump_counter > 0:
-                self._y += (self._jump_counter**2) / 2
+                self._y += (self._jump_counter**2) 
             else:
-                self._y -= (self._jump_counter**2) / 2
+                self._y -= (self._jump_counter**2)
 
             self._jump_counter += 1
             if self._jump_counter == 11:
@@ -54,15 +53,15 @@ class Player(Movment):
                 self._jump_counter = -10
 
         if self._left:
-            self._win.blit(self.walkLeft[self._motion_counter // 3], (self._x, self._y))
+            self._win.blit(self.walkLeft[self._motion_counter // 1], (self._x, self._y))
         elif self._right:
             self._win.blit(
-                self.walkRight[self._motion_counter // 3], (self._x, self._y)
+                self.walkRight[self._motion_counter // 1], (self._x, self._y)
             )
         else:
             self._win.blit(self.standing, (self._x, self._y))
 
-        if self._motion_counter == 26:
+        if self._motion_counter == 8:
             self._motion_counter = 0
 
         for bullet in self._bullets:

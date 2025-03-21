@@ -32,22 +32,22 @@ class Movment:
             self._left = True
             self._right = False
 
-            self._x -= 5
+            self._x -= 20
             self._motion_counter += 1
 
     def walk_left(self):
-        if self._x < 450:
+        if self._x < 1700:
             self._left = False
             self._right = True
 
-            self._x += 5
+            self._x += 20
             self._motion_counter += 1
 
     def dodge(self):
         if self.dodge is False: 
             self._hitbox = (0,0,0,0)
             self.dodge = True
-        if self.dodge is True:
+        else:
             self._hitbox = (self._x + 20 , self._y, 28, 60)
 
     def stand(self):
