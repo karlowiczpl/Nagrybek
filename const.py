@@ -8,7 +8,7 @@ CONF_PLAYER_HEIGHT = 100
 
 pygame.font.init()
 
-bg = pygame.image.load("images/bg.jpg")
+bg = pygame.image.load("images/bg.png")
 main_font = pygame.font.Font("font/main/Tektur-Bold.ttf", 48)
 # button = [
 #     [pygame.image.load("img/button_clicked1.jpg"),pygame.image.load("img/button_unclicked1.jpg")],

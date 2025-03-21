@@ -1,8 +1,4 @@
 import pygame
-from const import(
-    CONF_WIDTH,
-    CONF_HEIGHT,
-)
 from source.start import Start
 from source.player import Player
 
@@ -22,6 +18,8 @@ while isRun:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             isRun = False
+
+        start.handle_event(event)
 
     key = pygame.key.get_pressed()
     selected_object.key(key)
