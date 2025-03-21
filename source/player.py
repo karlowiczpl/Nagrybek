@@ -133,6 +133,3 @@ class Player:
 
         self._after_jump += 1
         self._bullet_delay += 1
-
-        self._hitbox = (self._x + 20, self._y,  28, 60)
-        pygame.draw.rect(self._win , (255,0,0), self._hitbox, 2)

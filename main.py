@@ -10,8 +10,11 @@ pygame.init()
 
 # window = pygame.display.set_mode((CONF_WIDTH,CONF_HEIGHT))
 window = pygame.display.set_mode()
-start = Start(window)
 player = Player(window)
+
+start = Start(window, player)
+
+selected_object = start
 
 isRun = True
 while isRun:
@@ -20,7 +23,9 @@ while isRun:
         if event.type == pygame.QUIT:
             isRun = False
 
-    start.draw()
-    player.draw()
+    key = pygame.key.get_pressed()
+    selected_object.key(key)
+
+    selected_object.draw()
 
     pygame.display.update()
