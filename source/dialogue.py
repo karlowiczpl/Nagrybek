@@ -1,14 +1,17 @@
 import pygame
 
+from const import main_font
+
 class Dialog:
     _wait_counter: int
+
     def __init__(self, dialog_text, who, window):
         self._who = who
-        self._words = dialog_text.split()  # Podziel tekst na słowa
+        self._words = dialog_text.split()  
         self._win = window
-        self.dialog_width = 1000
+        self.dialog_width = 1700
         self.dialog_height = 100
-        self.font = pygame.font.Font(None, 36)
+        self.font = main_font
         self._current_text = ""
         self._index = 0  
         self._last_update = pygame.time.get_ticks()  
@@ -31,7 +34,7 @@ class Dialog:
             else:
                 self._counter += 1
 
-                if self._counter > 40:
+                if self._counter > 100:
                     self._wait = False
                     self._counter = 0
                     self._current_text = ""
@@ -44,12 +47,10 @@ class Dialog:
         else:
             self._counter += 1
 
-            if self._counter > 40:
+            if self._counter > 100:
                 return False
 
             return True
-
-
 
     def draw(self):
         up = self.update()
