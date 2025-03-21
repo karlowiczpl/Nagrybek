@@ -21,7 +21,7 @@ class Start:
         self._win = window
         self._info = pygame.display.Info()
         self._player = player
-        self._dialog = Dialog(sample_dialog, "jan", self._win)
+        self._dialog = Dialog(sample_dialog, "RIPPER", self._win)
         self._active_dialog = True
 
     def draw(self):
@@ -36,5 +36,7 @@ class Start:
             self._player.jump()
         if key[pygame.K_d]:
             self._player.walk_left()
-        if key[pygame.K_a]:
+        elif key[pygame.K_a]:
             self._player.walk_right()
+        else:
+            self._player.stand()

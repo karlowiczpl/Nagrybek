@@ -1,5 +1,4 @@
 import pygame
-
 from const import main_font
 
 class Dialog:
@@ -57,9 +56,15 @@ class Dialog:
 
         dialog_x = (self._win.get_width() - self.dialog_width) // 2
         dialog_y = self._win.get_height() - 200
+        name_y = dialog_y - 30  
+        name_x = dialog_x + 120
 
         pygame.draw.rect(self._win, (50, 50, 50), (dialog_x, dialog_y, self.dialog_width, self.dialog_height), border_radius=10)
         pygame.draw.rect(self._win, (255, 255, 255), (dialog_x, dialog_y, self.dialog_width, self.dialog_height), 3, border_radius=10)
+
+        who_surface = self.font.render(self._who, True, (255, 255, 255))
+        who_rect = who_surface.get_rect(center=(name_x , name_y))  
+        self._win.blit(who_surface, who_rect)
 
         text_surface = self.font.render(self._current_text, True, (255, 255, 255))
         text_rect = text_surface.get_rect(center=(self._win.get_width() // 2, dialog_y + self.dialog_height // 2))
