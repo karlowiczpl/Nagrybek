@@ -71,9 +71,15 @@ class Start:
             for button in self._button:
                 button.draw()
         else:
+            if self._dialog_count > len(self._dialog):
+                stop_start()
 
+            background = pygame.transform.scale(bg, (self._info.current_w,self._info.current_h))
+            self._win.blit(background, (0,0))
             if not self._dialog[self._dialog_count].draw():
                 self._dialog_count += 1
+
+        return True
 
     def key(self, key):
         pass

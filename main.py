@@ -27,3 +27,6 @@ while isRun:
     selected_object.draw()
 
     pygame.display.update()
+
+def stop_start():
+    selected_object = Start()
