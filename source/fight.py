@@ -10,6 +10,7 @@ from .enemy import Enemy
 from .platform import Platform
 from .singleton import timer_delay, enemies, time_freeze, platforms, items
 from .items import Item
+from .car import Car
 
 dl1 = "Nie wiem, kim jesteś"
 dl2 = "Ha! Tylko ty to widzisz"
@@ -45,6 +46,7 @@ class Fight:
         self._bird_delay = 0
         self._time = Circle(self._player._x, self._player._y, (0,0,0), self._win, 80)
         self._time._off = True
+        self._car = Car(window)
 
     def draw(self):
         if self._bird_delay > self._bird_spawn_time:
@@ -68,14 +70,14 @@ class Fight:
                 pygame.mixer.music.play(4, 0.0)
             
         if not self._dialog_time:
-            # background = pygame.transform.scale(fight_bg, (self._info.current_w,self._info.current_h))
-            background = pygame.transform.scale(fight_bg, (1900,1000))
+            background = pygame.transform.scale(fight_bg, (2000,1000))
             self._win.blit(background, (0,0))
             self._player.draw()
             self._enemy.draw()
             
             for i in platforms:
                 i.draw()
+            self._car.draw()
         else:
             if self._dialog_counter >= len(self._dialog):
                 self._dialog_time = False

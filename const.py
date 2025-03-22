@@ -17,6 +17,12 @@ bullet = pygame.image.load("images/bullet.png")
 ground = pygame.image.load("images/ground1.png")
 
 main_font = pygame.font.Font("font/main/Tektur-Bold.ttf", 48)
+car = [
+    pygame.image.load("images/1.png"),
+    pygame.image.load("images/2.png"),
+    pygame.image.load("images/3.png"),
+    pygame.image.load("images/4.png"),
+]
 # button = [
 #     [pygame.image.load("img/button_clicked1.jpg"),pygame.image.load("img/button_unclicked1.jpg")],
 #     [pygame.image.load("img/button_clicked2.jpg"),pygame.image.load("img/button_unclicked2.jpg")],
