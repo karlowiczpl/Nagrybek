@@ -32,11 +32,16 @@ class Player(Movment):
             self.walkRight.append(pygame.transform.scale(item, (CONF_PLAYER_WIDTH,CONF_PLAYER_HEIGHT)))
         self.standing = pygame.transform.scale(self.standing, (CONF_PLAYER_WIDTH,CONF_PLAYER_HEIGHT))
         self._hp = Hp(window, 100, 100)
+        self._last_postion = True
 
     def bullet(self):
         if self._bullet_delay > 10:
-            self._bullets.append(Bullet(self._x, self._y, self._win, self._left))
-            self._bullet_delay = 0
+            if not self._left and not self._right:
+                self._bullets.append(Bullet(self._x, self._y, self._win, not self._last_postion))
+                self._bullet_delay = 0
+            else:
+                self._bullets.append(Bullet(self._x, self._y, self._win, self._left))
+                self._bullet_delay = 0
 
     def draw(self):
         self._hp.draw()
@@ -59,16 +64,14 @@ class Player(Movment):
             )
         else:
             self._win.blit(self.standing, (self._x, self._y))
+            
 
         if self._motion_counter == 8:
             self._motion_counter = 0
+        self._hitbox = (self._x + 50, self._y + 53,  100, 197)
+        pygame.draw.rect(self._win , (255,0,0), self._hitbox, 2)
 
         for bullet in self._bullets:
-        #     if bullet._y - 5 < self._enemy._hitbox[1] + self._enemy._hitbox[3] and bullet._y + 5  > self._enemy._hitbox[1]:
-        #         if bullet._x + 5 > self._enemy._hitbox[0] and bullet._x  - 5> self._enemy._hitbox[0] + self._enemy._hitbox[2]:
-        #             self._enemy.hit()
-        #             self._bullets.pop(self._bullets.index(bullet))
-
             bullet.draw()
 
         self._after_jump += 1

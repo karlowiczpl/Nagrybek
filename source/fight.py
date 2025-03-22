@@ -1,7 +1,7 @@
 import pygame
 
 from const import (
-    bg
+    fight_bg
 )
 from .dialogue import Dialog
 from .enemy import Enemy
@@ -33,7 +33,7 @@ class Fight:
     def draw(self):
         if not self._dialog_time:
 
-            background = pygame.transform.scale(bg, (self._info.current_w,self._info.current_h))
+            background = pygame.transform.scale(fight_bg, (self._info.current_w,self._info.current_h))
             self._win.blit(background, (0,0))
             self._player.draw()
             self._enemy.draw()
@@ -43,7 +43,7 @@ class Fight:
                 self._keys_en = True
                 return True
             
-            background = pygame.transform.scale(bg, (self._info.current_w,self._info.current_h))
+            background = pygame.transform.scale(fight_bg, (self._info.current_w,self._info.current_h))
             self._win.blit(background, (0,0))
             if not self._dialog[self._dialog_counter].draw():
                 self._dialog_counter += 1

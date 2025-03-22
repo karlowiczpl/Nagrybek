@@ -33,6 +33,7 @@ class Movment:
             self._right = False
 
             self._x -= 20
+            self._last_postion = False
             self._motion_counter += 1
 
     def walk_left(self):
@@ -42,6 +43,7 @@ class Movment:
 
             self._x += 20
             self._motion_counter += 1
+            self._last_postion = True
 
     def dodge(self):
         if self.dodge is False: 
