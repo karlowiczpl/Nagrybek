@@ -3,6 +3,7 @@ import pygame
 from const import bullet
 
 from .hp import HitBox
+from .singleton import gl_player, enemies
 
 class Bullet:
     def __init__(self, x, y, win, left):
@@ -19,14 +20,29 @@ class Bullet:
             self._x = x
             self._y = y + 100
         self._hitbox = HitBox(50,40, self._win)
+        self._vel = 40
+        self._hide = False
 
     def draw(self) -> bool:
-        self._win.blit(self._bullet_model, (self._x, self._y))
+        for enemy in enemies:
+            if enemy._hitbox.isTouching(self._hitbox):
+                self._hide = True
+
+        if not self._hide:
+            self._win.blit(self._bullet_model, (self._x, self._y))
+            self._hitbox.update(self._x-10, self._y+ 10)
+            self._hitbox.draw()
 
         if self._left:
-            self._x += 40
+            self._x += self._vel
         else:
-            self._x -= 40
+            self._x -= self._vel
 
-        self._hitbox.update(self._x-10, self._y+ 10)
-        self._hitbox.draw()
+    def hide(self):
+        self._hide = True
+
+class EnemyBullet(Bullet):
+    def __init__(self, x, y, win, left):
+        super().__init__(x, y, win, left)
+        self._vel = 20
+

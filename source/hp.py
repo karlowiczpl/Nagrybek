@@ -31,7 +31,7 @@ class Hp:
 
         if self._hp_count < 1:
             return False
-
+        
         return True
 
 class HitBox:

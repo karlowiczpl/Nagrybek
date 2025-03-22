@@ -1,10 +1,11 @@
 import pygame
+import random
 
 from .hp import Hp, HitBox
 from .movment import Movment
-from .bullet import Bullet
+from .bullet import EnemyBullet
 from .motion_animation import EnemyAnimation
-from .singleton import gl_player, time_freeze, ptr
+from .singleton import gl_player, time_freeze
 
 from const import(
     CONF_PLAYER_HEIGHT,
@@ -27,6 +28,7 @@ class Enemy(Movment, EnemyAnimation):
         self._after_jump = 0
         self._bullets = []
         self._bullet_delay = 0
+        self._hide = False
         self._hitbox = HitBox(97, 200, window)
         self._freeze = True
         for item in self.walkLeftx:
@@ -38,13 +40,17 @@ class Enemy(Movment, EnemyAnimation):
         self._bullet_counter = 0
         self._vel = 7
         self._time_frezze_timer = 0
+        self._rand = 100
+        self._hp = 25
 
     def kill(self):
-        self._kill = True
+        self._hp -= 1
+        if self._hp < 0:
+            self._kill = True
 
     def update(self):
         self._bullet_counter += 1
-        if self._bullet_counter == 100:
+        if self._bullet_counter == self._rand:
             self.bullet(not (gl_player[0]._x > self._x))
             self._bullet_counter = 0
 
@@ -56,12 +62,12 @@ class Enemy(Movment, EnemyAnimation):
     def bullet(self, left=None):
         if self._bullet_delay > 10:
             if left:
-                self._bullets.append(Bullet(self._x, self._y, self._win, left))
+                self._bullets.append(EnemyBullet(self._x, self._y, self._win, left))
             else:
-                self._bullets.append(Bullet(self._x, self._y, self._win, self._left))
+                self._bullets.append(EnemyBullet(self._x, self._y, self._win, self._left))
             self._bullet_delay = 0
+            self._rand = random.randint(0, 70)
 
-            
     def move_towards_target(self, target_x, target_y):
         if self.x < target_x:
             self.walk_right()
@@ -86,25 +92,25 @@ class Enemy(Movment, EnemyAnimation):
                 if self._jump_counter == 11:
                     self._jump = False
                     self._jump_counter = -10
-
-            if time_freeze[0]:
-                if self._left:
-                    self._win.blit(self.walkLeft[self._time_frezze_timer // 5], (self._x, self._y))
-                elif self._right:
-                    self._win.blit(
-                        self.walkRight[self._time_frezze_timer// 5], (self._x, self._y)
-                    )
+            if not self._hide:
+                if time_freeze[0]:
+                    if self._left:
+                        self._win.blit(self.walkLeft[self._time_frezze_timer // 5], (self._x, self._y))
+                    elif self._right:
+                        self._win.blit(
+                            self.walkRight[self._time_frezze_timer// 5], (self._x, self._y)
+                        )
+                    else:
+                        self._win.blit(self.standing, (self._x, self._y))
                 else:
-                    self._win.blit(self.standing, (self._x, self._y))
-            else:
-                if self._left:
-                    self._win.blit(self.walkLeft[self._motion_counter // 3], (self._x, self._y))
-                elif self._right:
-                    self._win.blit(
-                        self.walkRight[self._motion_counter // 3], (self._x, self._y)
-                    )
-                else:
-                    self._win.blit(self.standing, (self._x, self._y))
+                    if self._left:
+                        self._win.blit(self.walkLeft[self._motion_counter // 3], (self._x, self._y))
+                    elif self._right:
+                        self._win.blit(
+                            self.walkRight[self._motion_counter // 3], (self._x, self._y)
+                        )
+                    else:
+                        self._win.blit(self.standing, (self._x, self._y))
 
             if self._motion_counter == 26:
                 self._motion_counter = 0
@@ -114,11 +120,11 @@ class Enemy(Movment, EnemyAnimation):
 
             for bullet in self._bullets:
                 bullet.draw()
-
                 if gl_player[0]._hitbox.isTouching(bullet._hitbox):
                     gl_player[0].hit()
+                    # bullet._hide()
 
-            if gl_player[0]._hitbox.isTouching(self._hitbox):
+            if gl_player[0]._hitbox.isTouching(self._hitbox) and not self._hide:
                 gl_player[0].hit()
 
             self._time_frezze_timer += 1
