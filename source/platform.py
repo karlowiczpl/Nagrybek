@@ -1,11 +1,14 @@
 import pygame
-from hp import HitBox
-from movment import Movment
+from .hp import HitBox
+from .movment import Movment
+from .motion_animation import PlatformaAnimation
 
 
 
-class Platform(Movment):
+class Platform(Movment, PlatformaAnimation):
     def __init__(self, x, y, width, height, window, model, is_moving=False, speed=5,):
+        self._x = x
+        self._y = y
         self._hitbox = HitBox(width, height, window)
         self._hitbox.update(x, y)
         self._window = window
@@ -14,9 +17,10 @@ class Platform(Movment):
         self.speed = speed
         self.direction = 1  # 1 = right, -1 = left
 
-    def update(self):
-        return 
+
 
     def draw(self):
-        return
+        self._hitbox.draw()
+        
+    
         

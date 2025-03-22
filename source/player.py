@@ -5,7 +5,8 @@ from .movment import Movment
 from .bullet import Bullet
 from .motion_animation import PlayerAnimation
 from .hp import HitBox
-from .singleton import enemies
+from .platform import Platform
+from .singleton import enemies,platforms
 
 from const import(
     CONF_PLAYER_HEIGHT,
@@ -15,7 +16,7 @@ from const import(
 class Player(Movment, PlayerAnimation):
     def __init__(self, window):
         self._x = 50
-        self._y = 600
+        self._y = 550
         self._win = window
         self._left = False
         self._right = False
@@ -49,52 +50,71 @@ class Player(Movment, PlayerAnimation):
                 self._bullet_delay = 0
 
     def draw(self):
-        # Rysowanie paska zdrowia postaci
+    
+        #HEALTH
         self._hp.draw()
 
-        # Sprawdzenie, czy postać skacze
+        
+    
+        #JUMPING
         if self._jump:
-            # Jeśli licznik skoku jest większy niż 0, postać porusza się w górę
+            print("jump started")
+
             if self._jump_counter > 0:
-                self._y += (self._jump_counter**2)  # Ruch w górę - efekt paraboliczny
+                self._y += (self._jump_counter**2)  
             else:
-                self._y -= (self._jump_counter**2)  # Ruch w dół po osiągnięciu szczytu skoku (spadanie)
+                self._y -= (self._jump_counter**2) 
 
-            # Zwiększanie licznika skoku (prędkość skoku)
+
+
             self._jump_counter += 1
-
-            # Kiedy licznik skoku osiągnie wartość 11, kończymy skok
+            
+            for platform in platforms:
+                print(platform._hitbox.isTouchingFromTop(self._hitbox))
+                if platform._hitbox.isTouchingFromTop(self._hitbox, 80) is True:
+                    self._jump = False
+                    self._jump_counter = -10
+            
             if self._jump_counter == 11:
-                self._jump = False  # Ustawienie, że skok się zakończył
-                self._jump_counter = -10  # Reset licznika skoku, by zacząć opadać
+                self._jump = False  
+                self._jump_counter = -10  
+            
 
-        # Sprawdzenie, czy postać porusza się w lewo
-        if self._left:
-            # Rysowanie postaci idącej w lewo
-            self._win.blit(self.walkLeft[self._motion_counter // 1], (self._x, self._y))
-        # Sprawdzenie, czy postać porusza się w prawo
-        elif self._right:
-            # Rysowanie postaci idącej w prawo
-            self._win.blit(self.walkRight[self._motion_counter // 1], (self._x, self._y))
-        else:
-            # Rysowanie postaci, gdy nie porusza się (stojąc)
-            self._win.blit(self.standing, (self._x, self._y))
+                    
 
-        # Reset licznika animacji ruchu po osiągnięciu wartości 8
-        if self._motion_counter == 8:
-            self._motion_counter = 0
+      
+      
+        for platform in platforms:
+            if platform._hitbox.isTouchingFromSides(self._hitbox) is True:
+            
+        #WALKING
+                if self._left:
+                    # Rysowanie postaci idącej w lewo
+                    self._win.blit(self.walkLeft[self._motion_counter // 1], (self._x, self._y))
+                # Sprawdzenie, czy postać porusza się w prawo
+                elif self._right:
+                    # Rysowanie postaci idącej w prawo
+                    self._win.blit(self.walkRight[self._motion_counter // 1], (self._x, self._y))
+                else:
+                    # Rysowanie postaci, gdy nie porusza się (stojąc)
+                    self._win.blit(self.standing, (self._x, self._y))
 
-        # Aktualizacja hitboxa postaci (czyli miejsca, w którym postać może kolidować)
-        self._hitbox.update(self._x + 50, self._y + 53)
+                # Reset licznika animacji ruchu po osiągnięciu wartości 8
+                if self._motion_counter == 8:
+                    self._motion_counter = 0
 
-        # Rysowanie hitboxa (niewidoczny obszar detekcji kolizji)
-        self._hitbox.draw()
+                # Aktualizacja hitboxa postaci (czyli miejsca, w którym postać może kolidować)
+                self._hitbox.update(self._x + 50, self._y + 53)
 
-        # Rysowanie pocisków (jeśli postać ma jakieś wystrzelone pociski)
+                # Rysowanie hitboxa (niewidoczny obszar detekcji kolizji)
+                self._hitbox.draw()
+        
+        
+        #BULLETS
+
         for bullet in self._bullets:
             bullet.draw()  # Rysowanie każdego pocisku
 
-            # Sprawdzenie kolizji między pociskiem a wrogami
             for enemy in enemies:
                 # Jeśli pocisk trafia w wroga, ten umiera
                 if bullet._hitbox.isTouching(enemy._hitbox):

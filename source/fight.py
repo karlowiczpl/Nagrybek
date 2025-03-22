@@ -4,7 +4,8 @@ from const import (
 )
 from .dialogue import Dialog
 from .enemy import Enemy
-from .singleton import timer_delay, enemies, time_freeze
+from .platform import Platform
+from .singleton import timer_delay, enemies, time_freeze, platforms
 
 dl1 = "Nie wiem, kim jesteś"
 dl2 = "Ha! Tylko ty to widzisz"
@@ -17,7 +18,10 @@ class Fight:
         self._info = pygame.display.Info()
         self._player = player
         self._enemy = Enemy(self._win, 1000,600)
+        self._platform = Platform(399, 700, 200, 100, window, pygame.image.load("images/platform/platform.png"))
         enemies.append(self._enemy)
+        platforms.append(self._platform)
+        platforms.append(Platform(0, 920, 10000, 100, window, pygame.image.load("images/platform/platform.png")))
         self._dialog = [
             Dialog(dl1, "RIPPER", window),
             Dialog(dl2, "ENEMY", self._win),
@@ -45,6 +49,9 @@ class Fight:
             self._win.blit(background, (0,0))
             self._player.draw()
             self._enemy.draw()
+            
+            for i in platforms:
+                i.draw()
         else:
             if self._dialog_counter >= len(self._dialog):
                 self._dialog_time = False
@@ -58,7 +65,9 @@ class Fight:
 
             self._player.draw()
             self._enemy.draw()
-
+            
+            for i in platforms:
+                i.draw()
         return True
 
     def key(self, key):

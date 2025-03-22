@@ -56,3 +56,6 @@ class EnemyAnimation(Animation):
     standing = pygame.image.load("images/standing.png")
     walkLeft = []
     walkRight = []
+
+class PlatformaAnimation:
+    normal = pygame.image.load("images/platform/platform.png")
