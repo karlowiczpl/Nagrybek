@@ -33,6 +33,7 @@ class Player(Movment, PlayerAnimation):
         self._bullet_delay = 0
         self._hitbox = HitBox(100, 197, self._win)
         self._live = True
+        self._fall_counter = 0
 
         for item in self.walkLeftx:
             self.walkLeft.append(pygame.transform.scale(item, (CONF_PLAYER_WIDTH,CONF_PLAYER_HEIGHT)))
@@ -61,6 +62,13 @@ class Player(Movment, PlayerAnimation):
 
         if self._live:
             self._hp.draw()
+            for platform in platforms:
+                if not self._hitbox.isTouchingFromTop(platform._hitbox):
+                    self._fall_counter += 1
+
+                    self._y += (self._fall_counter**2) /2
+                else:
+                    self._fall_counter = 0
 
             if self._left:
                 self._win.blit(self.walkLeft[self._motion_counter // 1], (self._x, self._y))
@@ -96,7 +104,8 @@ class Player(Movment, PlayerAnimation):
         if self._live:
             if self._jump:
                 if self._jump_counter > 0:
-                    self._y += (self._jump_counter**2)  
+                    # self._y += (self._jump_counter**2)  
+                    pass
                 else:
                     self._y -= (self._jump_counter**2)  
 

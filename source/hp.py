@@ -55,22 +55,10 @@ class HitBox:
         
         return not (x1 + w1 <= x2 or x2 + w2 <= x1 or y1 + h1 <= y2 or y2 + h2 <= y1)       
 
-
-
-    #def isTouchingFromTop(self, hitbox):
-        #x1, y1, w1, h1 = hitbox._hitbox
-        #x2, y2, w2, h2 = self._hitbox
-
-        # Gracz dotyka platformy od góry (spadając), gdy jego dolna część jest tuż nad platformą.
-        #if y1 + h1 <= y2 and y1 + h1 + 1 >= y2 and x1 + w1 > x2 and x1 < x2 + w2:
-            #return True
-        #return False
-
     def isTouchingFromBottom(self, hitbox):
         x1, y1, w1, h1 = hitbox._hitbox
         x2, y2, w2, h2 = self._hitbox
 
-        # Gracz znajduje się poniżej platformy, jeżeli jego górna krawędź jest poniżej dolnej krawędzi platformy
         if y1 >= y2 + h2 and x1 + w1 > x2 and x1 < x2 + w2:
             return True
         return False
@@ -79,17 +67,15 @@ class HitBox:
         x1, y1, w1, h1 = self._hitbox
         x2, y2, w2, h2 = hitbox._hitbox
 
-        # Gracz dotyka platformy od boku, jeżeli jego ściany boczne dotykają platformy
         if (y1 + h1 > y2 and y1 < y2 + h2) and (x1 + w1 > x2 and x1 < x2 + w2):
             return True
         return False
     
-    
     def isTouchingFromTop(self, hitbox, tolerance=2):
         x1, y1, w1, h1 = hitbox._hitbox
         x2, y2, w2, h2 = self._hitbox
-    # Gracz dotyka platformy od góry (spadając), gdy jego dolna część jest tuż nad platformą.
-        if y1 + h1 <= y2 + tolerance and y1 + h1 + tolerance >= y2 and x1 + w1 > x2 and x1 < x2 + w2:
+
+        if y1 - (y2 + h2) <= 10:
             return True
         return False
 

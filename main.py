@@ -18,13 +18,11 @@ singleton.timer_delay.append(23)
 singleton.ptr.append(None)
 
 start = Start(window, player, singleton.ptr[0])
-enemy1 = Enemy(window, 100, 200)
-enemy2 = Enemy(window, 150, 200)
-enemy3 = Enemy(window, 80, 200)
-enemies = [enemy1, enemy2, enemy3]
+singleton.enemies.append(Enemy(window, 100, 200))
+singleton.enemies.append(Enemy(window, 150, 200))
+singleton.enemies.append(Enemy(window, 80, 200))
 
-
-start = Start(window, player, enemies)
+start = Start(window, player, singleton.enemies)
 fight = Fight(window, player)
 game_over = GameOver(window)
 
