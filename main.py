@@ -5,6 +5,7 @@ from source.fight import Fight
 from source.enemy import Enemy
 import source.singleton as singleton
 from source.platform import Platform
+from source.game_over import GameOver
 
 pygame.init()
 
@@ -25,8 +26,9 @@ enemies = [enemy1, enemy2, enemy3]
 
 start = Start(window, player, enemies)
 fight = Fight(window, player)
+game_over = GameOver(window)
 
-singleton.ptr[0] = fight
+singleton.ptr[0] = game_over
 
 isRun = True
 while isRun:
