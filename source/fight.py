@@ -5,6 +5,8 @@ from const import (
 )
 from .dialogue import Dialog
 from .enemy import Enemy
+from .singleton import enemies
+
 
 # dl1 = "Nie wiem, kim jesteś, ale jeśli myślisz, że mnie pokonasz, to się grubo mylisz. Twoje dni są policzone."
 # dl2 = "Ha! Tylko ty to widzisz. Myślisz, że jeden człowiek może powstrzymać całą armię? Zobaczymy, jak długo wytrzymasz."
@@ -19,6 +21,7 @@ class Fight:
         self._info = pygame.display.Info()
         self._player = player
         self._enemy = Enemy(self._win, 1000,600)
+        enemies.append(self._enemy)
         self._dialog = [
             Dialog(dl1, "RIPPER", window),
             Dialog(dl2, "ENEMY", self._win),
@@ -29,6 +32,7 @@ class Fight:
         self._keys_en = True
         self._dialog_time = False
         self._dialog_counter = 0
+        self._enemy_hit = False
 
     def draw(self):
         if not self._dialog_time:

@@ -5,11 +5,9 @@ class Skill:
         self.effect = effect
 
     def activate(self):
-        # Funkcja aktywująca umiejętność, która może mieć jakiś efekt w grze
         print(f"Aktywowano umiejętność: {self.name}. Efekt: {self.effect}")
 
 
-# Drzewo umiejętności: Chronomancer
 class ChronomancerTree:
     def __init__(self):
         self.skills = [

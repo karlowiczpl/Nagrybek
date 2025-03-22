@@ -4,6 +4,8 @@ from .hp import Hp
 from .movment import Movment
 from .bullet import Bullet
 from .motion_animation import PlayerAnimation
+from .hp import HitBox
+from .singleton import enemies
 
 from const import(
     CONF_PLAYER_HEIGHT,
@@ -23,14 +25,16 @@ class Player(Movment, PlayerAnimation):
         self._dodge = False
         self._jump_counter = -10
         self._dodge = False
-        self._after_jump = 0
+        self._after_jump = 40
         self._bullets = []
         self._bullet_delay = 0
-        self._hitbox = (self._x + 20 , self._y, 28, 60)
+        self._hitbox = HitBox(100, 197, self._win)
+
         for item in self.walkLeftx:
             self.walkLeft.append(pygame.transform.scale(item, (CONF_PLAYER_WIDTH,CONF_PLAYER_HEIGHT)))
         for item in self.walkRightx:
             self.walkRight.append(pygame.transform.scale(item, (CONF_PLAYER_WIDTH,CONF_PLAYER_HEIGHT)))
+
         self.standing = pygame.transform.scale(self.standing, (CONF_PLAYER_WIDTH,CONF_PLAYER_HEIGHT))
         self._hp = Hp(window, 100, 100)
         self._last_postion = True
@@ -65,26 +69,25 @@ class Player(Movment, PlayerAnimation):
             )
         else:
             self._win.blit(self.standing, (self._x, self._y))
-            
 
         if self._motion_counter == 8:
             self._motion_counter = 0
-        self._hitbox = (self._x + 50, self._y + 53,  100, 197)
-        pygame.draw.rect(self._win , (255,0,0), self._hitbox, 2)
+        self._hitbox.update(self._x + 50, self._y+ 53)
+        self._hitbox.draw()
 
         for bullet in self._bullets:
             bullet.draw()
+            for enemy in enemies:
+                if bullet._hitbox.isTouching(enemy._hitbox):
+                    enemy.kill()
 
         self._after_jump += 1
         self._bullet_delay += 1
         
         if self._dodge is True:
-            print("dodging")
             self._dodge_counter += 1
         
         if self._dodge_counter == 5 and self._dodge is True:
             self._dodge = False
             self._dodge_counter = 0
-            
-        
             

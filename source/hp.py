@@ -30,3 +30,24 @@ class Hp:
 
         return True
 
+class HitBox:
+    def __init__(self, width, height, window):
+        self._width = width
+        self._height = height
+        self._window = window
+        self._hitbox = (0,0,width,height)
+        self._win = window
+
+    def update(self, x, y):
+        self._hitbox = (x, y, self._width, self._height)
+
+    def draw(self):
+        pygame.draw.rect(self._win , (255,0,0), self._hitbox, 2)
+
+    def isTouching(self, hitbox):
+        x1, y1, w1, h1 = self._hitbox
+        x2, y2, w2, h2 = hitbox._hitbox
+        
+        return not (x1 + w1 <= x2 or x2 + w2 <= x1 or y1 + h1 <= y2 or y2 + h2 <= y1)       
+
+        

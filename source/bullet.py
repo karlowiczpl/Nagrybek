@@ -2,6 +2,8 @@ import pygame
 
 from const import bullet
 
+from .hp import HitBox
+
 class Bullet:
     def __init__(self, x, y, win, left):
         self._win = win
@@ -16,6 +18,7 @@ class Bullet:
             self._bullet_model = pygame.transform.rotate(self._bullet_model, 90)
             self._x = x
             self._y = y + 100
+        self._hitbox = HitBox(50,40, self._win)
 
     def draw(self) -> bool:
         self._win.blit(self._bullet_model, (self._x, self._y))
@@ -25,5 +28,5 @@ class Bullet:
         else:
             self._x -= 40
 
-        self._hitbox = (self._x - 10, self._y + 10,  50, 40)
-        pygame.draw.rect(self._win , (255,0,0), self._hitbox, 2)
+        self._hitbox.update(self._x-10, self._y+ 10)
+        self._hitbox.draw()
