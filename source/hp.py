@@ -10,6 +10,7 @@ class Hp:
         self.x = 10 
         self.y = 10  
         self._hp_count = 10 
+        self._hp_delay = 0
 
     def draw(self):
         hp_percentage = self.current_hp / self.max_hp
@@ -21,9 +22,12 @@ class Hp:
                 color = (0, 255, 0)
             
             pygame.draw.rect(self._win, color, (self.x + (self.hp_bar_size + self.hp_bar_gap) * i, self.y, self.hp_bar_size, self.hp_bar_size), border_radius=7)
+        self._hp_delay += 1
 
     def hp_down(self, hp_count):
-        self._hp_count -= hp_count
+        if self._hp_delay > 10:
+            self._hp_count -= hp_count
+            self._hp_delay = 0
 
         if self._hp_count < 1:
             return False

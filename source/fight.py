@@ -12,7 +12,6 @@ dl3 = "Nie jestem sam. Moje "
 
 class Fight:
     def __init__(self, window, player):
-
         self._win = window
         self._info = pygame.display.Info()
         self._player = player

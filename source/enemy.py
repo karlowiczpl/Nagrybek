@@ -4,7 +4,7 @@ from .hp import Hp, HitBox
 from .movment import Movment
 from .bullet import Bullet
 from .motion_animation import EnemyAnimation
-from .singleton import gl_player, time_freeze
+from .singleton import gl_player, time_freeze, ptr
 
 from const import(
     CONF_PLAYER_HEIGHT,
@@ -34,7 +34,6 @@ class Enemy(Movment, EnemyAnimation):
         for item in self.walkRightx:
             self.walkRight.append(pygame.transform.scale(item, (CONF_PLAYER_WIDTH,CONF_PLAYER_HEIGHT)))
         self.standing = pygame.transform.scale(self.standing, (CONF_PLAYER_WIDTH,CONF_PLAYER_HEIGHT))
-        self._hp = Hp(window, 100, 100)
         self._kill = False
         self._bullet_counter = 0
         self._vel = 7
@@ -77,7 +76,6 @@ class Enemy(Movment, EnemyAnimation):
 
         if not self._kill:
             self.update()
-            self._hp.draw()
             if self._jump:
                 if self._jump_counter > 0:
                     self._y += (self._jump_counter**2) / 2
@@ -116,6 +114,12 @@ class Enemy(Movment, EnemyAnimation):
 
             for bullet in self._bullets:
                 bullet.draw()
+
+                if gl_player[0]._hitbox.isTouching(bullet._hitbox):
+                    gl_player[0].hit()
+
+            if gl_player[0]._hitbox.isTouching(self._hitbox):
+                gl_player[0].hit()
 
             self._time_frezze_timer += 1
             self._after_jump += 1
