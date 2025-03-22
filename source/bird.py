@@ -3,10 +3,11 @@ import pygame
 from const import(
     bird,
 )
-from .singleton import gl_player
+from .singleton import gl_player, time_freeze
 from .hp import HitBox
 
 class Bird:
+    _vel = 20
     def __init__(self, y, win):
         self._y = y
         self._x = 1500
@@ -27,6 +28,11 @@ class Bird:
         if gl_player[0]._hitbox.isTouching(self._hitbox):
             gl_player[0].hit()
 
-        self._x -= 20
+        if time_freeze[0]:
+            self._vel = 10
+        else:
+            self._vel = 20
+
+        self._x -= self._vel
         self._animation_counter += 1
 

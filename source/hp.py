@@ -1,5 +1,8 @@
 import pygame
 from .singleton import gl_player
+from const import(
+    hp_bar,
+)
 
 class Hp:
     def __init__(self, window, max_hp, current_hp):
@@ -8,21 +11,19 @@ class Hp:
         self.current_hp = current_hp  
         self.hp_bar_size = 30  
         self.hp_bar_gap = 5  
-        self.x = 10 
-        self.y = 10  
+        self.x = -40 
+        self.y = -50  
         self._hp_count = 10 
         self._hp_delay = 0
 
     def draw(self):
-        hp_percentage = self.current_hp / self.max_hp
-        full_blocks = int(hp_percentage * 10)  
+        hp = self._hp_count
+        hp -= 1
+        if self._hp_count > 9:
+            hp = 9
 
-        for i in range(self._hp_count):
-            color = (50, 50, 50)  
-            if i < full_blocks:  
-                color = (0, 255, 0)
-            
-            pygame.draw.rect(self._win, color, (self.x + (self.hp_bar_size + self.hp_bar_gap) * i, self.y, self.hp_bar_size, self.hp_bar_size), border_radius=7)
+        self._win.blit(pygame.transform.scale(hp_bar[hp], (500,170)), (self.x, self.y))
+
         self._hp_delay += 1
 
     def hp_down(self, hp_count):

@@ -22,6 +22,18 @@ main_font = pygame.font.Font("font/main/Tektur-Bold.ttf", 48)
 #     [pygame.image.load("img/button_clicked2.jpg"),pygame.image.load("img/button_unclicked2.jpg")],
 #     [pygame.image.load("img/button_clicked3.jpg"),pygame.image.load("img/button_unclicked3.jpg")],
 # ]
+hp_bar = [
+    pygame.image.load("images/piwo1.png"),
+    pygame.image.load("images/piwo2.png"),
+    pygame.image.load("images/piwo3.png"),
+    pygame.image.load("images/piwo4.png"),
+    pygame.image.load("images/piwo5.png"),
+    pygame.image.load("images/piwo6.png"),
+    pygame.image.load("images/piwo7.png"),
+    pygame.image.load("images/piwo8.png"),
+    pygame.image.load("images/piwo9.png"),
+    pygame.image.load("images/piwo10.png"),
+]
 bird = [
     pygame.image.load("images/flappy_bird/skeleton-01_fly_00.png"),
     pygame.image.load("images/flappy_bird/skeleton-01_fly_01.png"),

@@ -35,8 +35,6 @@ class Fight:
             Dialog(dl2, "ENEMY", self._win),
             Dialog(dl3, "RIPPER", self._win),
         ]
-        # self._keys_en = False
-        # self._dialog_time = True
         self._keys_en = True
         self._dialog_time = False
         self._dialog_counter = 0
@@ -45,6 +43,8 @@ class Fight:
         self._time_frezze = False
         items.append(Item(50 , 50, self._win, self._player))
         self._bird_delay = 0
+        self._time = Circle(self._player._x, self._player._y, (0,0,0), self._win, 80)
+        self._time._off = True
 
     def draw(self):
         if self._bird_delay > self._bird_spawn_time:
@@ -67,10 +67,9 @@ class Fight:
                 pygame.mixer.music.load("images/sounds/ticking.mp3")
                 pygame.mixer.music.play(4, 0.0)
             
-            
-
         if not self._dialog_time:
-            background = pygame.transform.scale(fight_bg, (self._info.current_w,self._info.current_h))
+            # background = pygame.transform.scale(fight_bg, (self._info.current_w,self._info.current_h))
+            background = pygame.transform.scale(fight_bg, (1900,1000))
             self._win.blit(background, (0,0))
             self._player.draw()
             self._enemy.draw()
@@ -99,24 +98,9 @@ class Fight:
         for bird in self._birds:
             bird.draw()
                 
-        if time_freeze[0]:
-            
-            circle = Circle(self._player._x, self._player._y, self._circle_radius, (0,0,0), 80)
-            circle.draw(self._win)
-            self._circle_radius += 70
-        
-        
-        if self._time_frezze_delay == 48 or self.circleBack:
-            print("dziala")
-            self._time_frezze_delay = 0
+        if self._time.draw(self._player._x, self._player._y):
             time_freeze[0] = False
-            self.circleBack = True
-            self._circle_radius = self._circle_radius - 70
-            circle = Circle(self._player._x, self._player._y, self._circle_radius, (0,0,0), 80)
-            circle.draw(self._win)
-            if self._circle_radius == 0:
-                print("wylacza sie")
-                self.circleBack = False
+        
         return True
 
     def key(self, key):
@@ -132,8 +116,9 @@ class Fight:
             if key[pygame.K_SPACE]:
                 self._player.bullet()
             if key[pygame.K_t]:
-                time_freeze[0] = True
                 self._time_frezze = True
+                time_freeze[0] = True
+                self._time = Circle(self._player._x, self._player._y, (0,0,0), self._win, 80)
 
     def handle_event(self, event):
         pass
