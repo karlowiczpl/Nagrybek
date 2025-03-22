@@ -9,7 +9,7 @@ class Item:
         self._x = x
         self._y = y
         self._win = window
-        self._vel = (1500 - x) / 100 
+        self._vel = (1500 - y) / 100 
         self._hitbox = HitBox(100, 100, window)
         self._player = player
 
@@ -28,7 +28,7 @@ class Item:
         if self._hitbox.isTouching(gl_player[0]._hitbox):
             self._hide = True
             rand1 = random.randint(100, 1500)
-            rand2 = random.randint(100, 550)
+            rand2 = random.randint(100, 100)
             items[0] = (Item(rand1, rand2, self._win, self._player))
             self._player.hp_up()
 

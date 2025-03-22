@@ -35,6 +35,8 @@ class Player(Movment, PlayerAnimation):
         self._live = True
         self._fall_counter = 0
         self._disable = False
+        self._go_down = False
+        self._down_counter = 0
 
         for item in self.walkLeftx:
             self.walkLeft.append(pygame.transform.scale(item, (CONF_PLAYER_WIDTH,CONF_PLAYER_HEIGHT)))
@@ -44,6 +46,7 @@ class Player(Movment, PlayerAnimation):
         self.standing = pygame.transform.scale(self.standing, (CONF_PLAYER_WIDTH,CONF_PLAYER_HEIGHT))
         self._hp = Hp(window, 100, 100)
         self._last_postion = True
+        self._touching = False
 
     def hit(self):
         if not self._hp.hp_down(1):
@@ -62,13 +65,33 @@ class Player(Movment, PlayerAnimation):
                 self._bullet_delay = 0
 
     def move_y(self):
+        x = False
         for platform in platforms:
-            if self._hitbox.isTouching(platform._hitbox) and not self._disable:
-                self._disable = True
-                self._jump = False
-                self._jump_counter = -10
-                x1, y1, w1, h1 = self._hitbox._hitbox
-                # self._y = y1 
+            if self._hitbox.isTouching(platform._hitbox):
+                if not self._disable:
+                    self._disable = True
+                    self._jump = False
+                    self._jump_counter = -10
+                    x1, y1, w1, h1 = platform._hitbox._hitbox
+                    self._y = y1 - 230
+                    self._touching = True
+                x = True
+
+        if not x and self._disable and not self._jump:
+            if self._y < 650:
+                self._go_down = True
+                self._down_counter += 1
+            elif self._go_down:
+                self._go_down = False
+                self._down_counter = 0
+
+        if self._y > 650: 
+            self._y = 650
+
+        if self._go_down:
+            self._y += int((self._down_counter**2) )
+
+                # self._y = platforms[0]._y
         
         if self._jump:
             if self._jump_counter > 0:
@@ -86,6 +109,7 @@ class Player(Movment, PlayerAnimation):
                         self._y = 650
                         self._jump_counter = -10
                         self._jump = False
+                        self._touching = False
                 else:
                     self._y += int((self._jump_counter**2) )
             else:
