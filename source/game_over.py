@@ -20,6 +20,9 @@ class GameOver:
         self._action_taken = False  
         self._red_intensity = 0 
 
+    def key(self, event):
+        pass
+
     def draw(self):
 
         self._win.fill(BLACK)  
