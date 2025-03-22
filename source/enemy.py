@@ -38,6 +38,7 @@ class Enemy(Movment, EnemyAnimation):
         self._kill = False
         self._bullet_counter = 0
         self._vel = 7
+        self._time_frezze_timer = 0
 
     def kill(self):
         self._kill = True
@@ -69,7 +70,7 @@ class Enemy(Movment, EnemyAnimation):
             self.walk_left()
 
     def draw(self):
-        if time_freeze:
+        if time_freeze[0]:
             self._vel = 3
         else:
             self._vel = 7
@@ -88,17 +89,30 @@ class Enemy(Movment, EnemyAnimation):
                     self._jump = False
                     self._jump_counter = -10
 
-            if self._left:
-                self._win.blit(self.walkLeft[self._motion_counter // 3], (self._x, self._y))
-            elif self._right:
-                self._win.blit(
-                    self.walkRight[self._motion_counter // 3], (self._x, self._y)
-                )
+            if time_freeze[0]:
+                if self._left:
+                    self._win.blit(self.walkLeft[self._motion_counter // 3], (self._x, self._y))
+                elif self._right:
+                    self._win.blit(
+                        self.walkRight[self._motion_counter // 3], (self._x, self._y)
+                    )
+                else:
+                    self._win.blit(self.standing, (self._x, self._y))
             else:
-                self._win.blit(self.standing, (self._x, self._y))
+                if self._left:
+                    self._win.blit(self.walkLeft[self._motion_counter // 3], (self._x, self._y))
+                elif self._right:
+                    self._win.blit(
+                        self.walkRight[self._motion_counter // 3], (self._x, self._y)
+                    )
+                else:
+                    self._win.blit(self.standing, (self._x, self._y))
 
             if self._motion_counter == 26:
                 self._motion_counter = 0
+
+            # if self._time_frezze_timer == 52:
+                # self._``
 
             for bullet in self._bullets:
                 bullet.draw()

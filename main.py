@@ -3,7 +3,6 @@ from source.start import Start
 from source.player import Player
 from source.fight import Fight
 from source.enemy import Enemy
-from source.dialogue import Dialog
 import source.singleton as singleton
 
 pygame.init()
@@ -42,6 +41,4 @@ while isRun:
     if not selected_object.draw():
         selected_object = Fight(window, player)
 
-
     pygame.display.update()
-
