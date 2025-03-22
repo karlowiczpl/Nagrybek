@@ -7,6 +7,8 @@ from .motion_animation import PlayerAnimation
 from .hp import HitBox
 from .singleton import enemies, ptr
 from .game_over import GameOver
+from .platform import Platform
+from .singleton import enemies,platforms
 
 from const import(
     CONF_PLAYER_HEIGHT,
@@ -16,7 +18,7 @@ from const import(
 class Player(Movment, PlayerAnimation):
     def __init__(self, window):
         self._x = 50
-        self._y = 600
+        self._y = 550
         self._win = window
         self._left = False
         self._right = False

@@ -4,6 +4,7 @@ from source.player import Player
 from source.fight import Fight
 from source.enemy import Enemy
 import source.singleton as singleton
+from source.platform import Platform
 
 pygame.init()
 
@@ -20,6 +21,7 @@ enemy1 = Enemy(window, 100, 200)
 enemy2 = Enemy(window, 150, 200)
 enemy3 = Enemy(window, 80, 200)
 enemies = [enemy1, enemy2, enemy3]
+
 
 start = Start(window, player, enemies)
 fight = Fight(window, player)
