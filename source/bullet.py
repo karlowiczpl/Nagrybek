@@ -26,7 +26,6 @@ class Bullet:
     def draw(self) -> bool:
         if gl_player[0]._hitbox.isTouching(self._hitbox):
             self._hide = True
-            print("is tochin =")
 
         if not self._hide:
             self._win.blit(self._bullet_model, (self._x, self._y))
