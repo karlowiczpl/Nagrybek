@@ -3,13 +3,14 @@ import pygame
 from .hp import Hp
 from .movment import Movment
 from .bullet import Bullet
+from .motion_animation import EnemyAnimation
 
 from const import(
     CONF_PLAYER_HEIGHT,
     CONF_PLAYER_WIDTH,
 )
 
-class Enemy(Movment):
+class Enemy(Movment, EnemyAnimation):
     def __init__(self, window, x, y):
         self._x = x
         self._y = y

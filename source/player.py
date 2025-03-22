@@ -3,13 +3,14 @@ import pygame
 from .hp import Hp
 from .movment import Movment
 from .bullet import Bullet
+from .motion_animation import PlayerAnimation
 
 from const import(
     CONF_PLAYER_HEIGHT,
     CONF_PLAYER_WIDTH,
 )
 
-class Player(Movment):
+class Player(Movment, PlayerAnimation):
     def __init__(self, window):
         self._x = 50
         self._y = 600
