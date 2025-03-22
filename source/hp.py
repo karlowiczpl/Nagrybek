@@ -71,11 +71,14 @@ class HitBox:
             return True
         return False
     
-    def isTouchingFromTop(self, hitbox, tolerance=2):
-        x1, y1, w1, h1 = hitbox._hitbox
-        x2, y2, w2, h2 = self._hitbox
 
-        if y1 - (y2 + h2) <= 10:
+    def isTouchingFromTop(self, hitbox, tolerance=2):
+        # Załóżmy, że hitbox przekazany jako argument to obiekt gracza
+        x1, y1, w1, h1 = hitbox._hitbox  # hitbox gracza
+        x2, y2, w2, h2 = self._hitbox      # hitbox platformy
+        
+        # Sprawdź, czy dolna krawędź gracza jest blisko górnej krawędzi platformy
+        if abs((y1 + h1) - y2) <= tolerance and x1 + w1 > x2 and x1 < x2 + w2:
             return True
         return False
 

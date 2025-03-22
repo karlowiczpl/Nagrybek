@@ -26,7 +26,7 @@ start = Start(window, player, singleton.enemies)
 fight = Fight(window, player)
 game_over = GameOver(window)
 
-singleton.ptr[0] = game_over
+singleton.ptr[0] = fight
 
 isRun = True
 while isRun:

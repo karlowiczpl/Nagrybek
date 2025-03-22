@@ -29,7 +29,7 @@ class Movment:
         self._right = False
 
     def jump(self):
-        if self._after_jump > 40:
+        # if self._after_jump > 40:
             self._jump = True
             self._after_jump = 0
 
