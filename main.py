@@ -8,6 +8,8 @@ from source.platform import Platform
 from source.game_over import GameOver
 
 pygame.init()
+pygame.mixer.init()
+
 
 window = pygame.display.set_mode()
 player = Player(window)
@@ -41,6 +43,6 @@ while isRun:
     singleton.ptr[0].key(key)
     
     if not singleton.ptr[0].draw():
-        selected_object = Fight(window, player)
+        selected_object = game_over
 
     pygame.display.update()

@@ -1,4 +1,5 @@
 import pygame
+from .circle import Circle
 from const import (
     fight_bg
 )
@@ -11,8 +12,12 @@ dl1 = "Nie wiem, kim jesteś"
 dl2 = "Ha! Tylko ty to widzisz"
 dl3 = "Nie jestem sam. Moje "
 
+PURPLE = (128, 0, 128)
+
+
 class Fight:
     def __init__(self, window, player):
+        self._circle_radius = 0
         self._win = window
         self._info = pygame.display.Info()
         self._player = player
@@ -32,14 +37,20 @@ class Fight:
         self._enemy_hit = False
         self._time_frezze_delay = 0
         self._time_frezze = False
+        self.circleBack = False
 
     def draw(self):
-        if time_freeze[0]:
-            self._time_frezze_delay += 1
+        
 
-        if self._time_frezze_delay == 40:
-            time_freeze[0] = False
-            self._time_frezze_delay = 0
+        if time_freeze[0]:
+        
+            self._time_frezze_delay += 1
+            
+            if self._time_frezze_delay == 0:
+                pygame.mixer.music.load("images/sounds/ticking.mp3")
+                pygame.mixer.music.play(4, 0.0)
+            
+            
 
         if not self._dialog_time:
             background = pygame.transform.scale(fight_bg, (self._info.current_w,self._info.current_h))
@@ -66,6 +77,29 @@ class Fight:
             
             for i in platforms:
                 i.draw()
+                
+        if time_freeze[0]:
+            
+            circle = Circle(self._player._x, self._player._y, self._circle_radius, (0,0,0), 80)
+            circle.draw(self._win)
+            self._circle_radius += 70
+        
+        
+        if self._time_frezze_delay == 48 or self.circleBack:
+            print("dziala")
+            self._time_frezze_delay = 0
+            time_freeze[0] = False
+            self.circleBack = True
+            self._circle_radius = self._circle_radius - 70
+            circle = Circle(self._player._x, self._player._y, self._circle_radius, (0,0,0), 80)
+            circle.draw(self._win)
+            if self._circle_radius == 0:
+                print("wylacza sie")
+                self.circleBack = False
+            
+            
+            
+
         return True
 
     def key(self, key):

@@ -66,7 +66,6 @@ class Enemy(Movment, EnemyAnimation):
                 self._bullets.append(EnemyBullet(self._x, self._y, self._win, self._left))
             self._bullet_delay = 0
             self._rand = random.randint(0, 70)
-            print("bullet")
 
     def move_towards_target(self, target_x, target_y):
         if self.x < target_x:
