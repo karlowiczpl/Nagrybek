@@ -24,13 +24,13 @@ class Bullet:
         self._hide = False
 
     def draw(self) -> bool:
-        for enemy in enemies:
-            if enemy._hitbox.isTouching(self._hitbox):
-                self._hide = True
+        if gl_player[0]._hitbox.isTouching(self._hitbox):
+            self._hide = True
+            print("is tochin =")
 
         if not self._hide:
             self._win.blit(self._bullet_model, (self._x, self._y))
-            self._hitbox.update(self._x-10, self._y+ 10)
+            self._hitbox.update(self._x+40, self._y+ 10)
             self._hitbox.draw()
 
         if self._left:

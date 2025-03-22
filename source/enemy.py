@@ -15,7 +15,7 @@ from const import(
 class Enemy(Movment, EnemyAnimation):
     def __init__(self, window, x, y):
         self._x = x
-        self._y = y
+        self._y = 650
         self._win = window
         self._left = False
         self._right = False
@@ -60,13 +60,13 @@ class Enemy(Movment, EnemyAnimation):
             self.walk_right()
 
     def bullet(self, left=None):
-        if self._bullet_delay > 10:
             if left:
                 self._bullets.append(EnemyBullet(self._x, self._y, self._win, left))
             else:
                 self._bullets.append(EnemyBullet(self._x, self._y, self._win, self._left))
             self._bullet_delay = 0
             self._rand = random.randint(0, 70)
+            print("bullet")
 
     def move_towards_target(self, target_x, target_y):
         if self.x < target_x:
