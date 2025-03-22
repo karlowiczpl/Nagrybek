@@ -130,4 +130,3 @@ class Enemy(Movment, EnemyAnimation):
             self._after_jump += 1
             self._bullet_delay += 1
             self._hitbox.update(self._x + 50, self._y + 53)
-            self._hitbox.draw()

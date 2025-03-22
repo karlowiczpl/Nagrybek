@@ -1,8 +1,11 @@
 import pygame
+import random
 
 from const import (
     bg,
     main_font,
+    button1,
+    button2
 )
 from .dialogue import Dialog
 from .fight import Fight
@@ -28,14 +31,12 @@ class Button:
 
     def draw(self):
         self.update()
-        if self._clicked:
-            pygame.draw.rect(self._window, self._color_2, self._rect, border_radius=self._border_radius) 
+        pygame.draw.rect(self._window, self._color, self._rect, border_radius=self._border_radius)  
+        if self._text == "START":
+            self._window.blit(pygame.transform.scale(button1, (800, 600)), (self._x-200, self._y-300))
         else:
-            pygame.draw.rect(self._window, self._color, self._rect, border_radius=self._border_radius)  
-        
-        text_surface = self._font.render(self._text, True, (255, 255, 255))  
-        self._window.blit(text_surface, (self._x + (self._width - text_surface.get_width()) / 2,
-                                        self._y + (self._height - text_surface.get_height()) / 2))
+            self._window.blit(pygame.transform.scale(button2, (800, 500)), (self._x-200, self._y-180))
+
 
     def is_pressed(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN and self._rect.collidepoint(event.pos):

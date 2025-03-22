@@ -9,6 +9,8 @@ CONF_FLOR_LEVEL = 200
 
 pygame.font.init()
 
+button1 = pygame.image.load("images/Play_button.png")
+button2 = pygame.image.load("images/Credits_button.png")
 bg = pygame.image.load("images/bg.png")
 fight_bg = pygame.image.load("images/fight_bg.png")
 bullet = pygame.image.load("images/bullet.png")
@@ -20,3 +22,21 @@ main_font = pygame.font.Font("font/main/Tektur-Bold.ttf", 48)
 #     [pygame.image.load("img/button_clicked2.jpg"),pygame.image.load("img/button_unclicked2.jpg")],
 #     [pygame.image.load("img/button_clicked3.jpg"),pygame.image.load("img/button_unclicked3.jpg")],
 # ]
+bird = [
+    pygame.image.load("images/flappy_bird/skeleton-01_fly_00.png"),
+    pygame.image.load("images/flappy_bird/skeleton-01_fly_01.png"),
+    pygame.image.load("images/flappy_bird/skeleton-01_fly_02.png"),
+    pygame.image.load("images/flappy_bird/skeleton-01_fly_03.png"),
+    pygame.image.load("images/flappy_bird/skeleton-01_fly_04.png"),
+    pygame.image.load("images/flappy_bird/skeleton-01_fly_05.png"),
+    pygame.image.load("images/flappy_bird/skeleton-01_fly_06.png"),
+    pygame.image.load("images/flappy_bird/skeleton-01_fly_07.png"),
+    pygame.image.load("images/flappy_bird/skeleton-01_fly_08.png"),
+    pygame.image.load("images/flappy_bird/skeleton-01_fly_09.png"),
+    pygame.image.load("images/flappy_bird/skeleton-01_fly_10.png"),
+    pygame.image.load("images/flappy_bird/skeleton-01_fly_11.png"),
+    pygame.image.load("images/flappy_bird/skeleton-01_fly_12.png"),
+    pygame.image.load("images/flappy_bird/skeleton-01_fly_13.png"),
+    pygame.image.load("images/flappy_bird/skeleton-01_fly_14.png"),
+    pygame.image.load("images/flappy_bird/skeleton-01_fly_15.png"),
+]

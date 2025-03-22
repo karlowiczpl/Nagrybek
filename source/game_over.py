@@ -27,7 +27,6 @@ class GameOver:
 
         self._win.fill(BLACK)  
 
- 
         elapsed_time = time.time() - self._start_time
 
 

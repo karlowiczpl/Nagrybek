@@ -130,7 +130,6 @@ class Player(Movment, PlayerAnimation):
                 self._motion_counter = 0
 
             self._hitbox.update(self._x + 50, self._y + 53)
-            self._hitbox.draw()
 
             for bullet in self._bullets:
                 bullet.draw()  

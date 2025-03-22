@@ -49,7 +49,7 @@ class Dialog:
         else:
             self._counter += 1
 
-            if self._counter > 100:
+            if self._counter > 30:
                 return False
 
             return True

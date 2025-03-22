@@ -1,5 +1,7 @@
 import pygame
+import random
 from .circle import Circle
+from .bird import Bird
 from const import (
     fight_bg
 )
@@ -26,6 +28,8 @@ class Fight:
         platforms.append(Platform(300, 600, 600, 40, window, pygame.image.load("images/platform/platform.png")))
         platforms.append(Platform(1300, 350, 600, 40, window, pygame.image.load("images/platform/platform.png")))
         enemies.append(self._enemy)
+        self._birds = [Bird(400, self._win)]
+        self._bird_spawn_time = 60
         self._dialog = [
             Dialog(dl1, "RIPPER", window),
             Dialog(dl2, "ENEMY", self._win),
@@ -40,8 +44,16 @@ class Fight:
         self._time_frezze_delay = 0
         self._time_frezze = False
         items.append(Item(50 , 50, self._win, self._player))
+        self._bird_delay = 0
 
     def draw(self):
+        if self._bird_delay > self._bird_spawn_time:
+            postion = random.randint(200,650)
+            self._bird_spawn_time = random.randint(20,120)
+            self._birds.append(Bird(postion, self._win))
+            self._bird_delay = 0
+
+        self._bird_delay += 1
 
         if time_freeze[0]:
             self._time_frezze_delay += 1
@@ -84,6 +96,8 @@ class Fight:
                 i.draw()
 
         items[0].draw()
+        for bird in self._birds:
+            bird.draw()
                 
         if time_freeze[0]:
             

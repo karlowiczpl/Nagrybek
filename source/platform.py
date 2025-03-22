@@ -24,7 +24,6 @@ class Platform(Movment, PlatformaAnimation):
 
     def draw(self):
         self._window.blit(self.scaled_model, (self._x, self._y))
-        self._hitbox.draw()  
 
     def set_size(self, new_width, new_height):
         self._width = new_width
