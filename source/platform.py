@@ -15,7 +15,7 @@ class Platform(Movment, PlatformaAnimation):
         self.speed = speed
         self.direction = 1  
 
-        self._hitbox = HitBox(width, height, window)
+        self._hitbox = HitBox(width-300, height, window)
         self._hitbox.update(x, y)
         self.model = ground
         self.scaled_model = pygame.transform.scale(self.model, (self._width, self._height))
@@ -29,5 +29,5 @@ class Platform(Movment, PlatformaAnimation):
         self._width = new_width
         self._height = new_height
         self.scaled_model = pygame.transform.scale(self.model, (self._width, self._height))
-        self._hitbox.update(self._x, self._y)
+        self._hitbox.update(self._x+150, self._y+30)
 
