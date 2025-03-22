@@ -1,4 +1,7 @@
 import pygame
+import random
+from .singleton import shits
+from .shit import Shit
 
 from const import(
     bird,
@@ -19,6 +22,10 @@ class Bird:
         self._hitbox = HitBox(150,100, win)
         
     def draw(self):
+        
+        if random.randint(1,120) == 1:
+            shits.append(Shit(self._x, self._y, self._win))
+
         if self._animation_counter == 15:
             self._animation_counter = 0
 
