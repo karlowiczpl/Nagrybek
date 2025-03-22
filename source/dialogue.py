@@ -12,16 +12,19 @@ class Dialog:
         self.dialog_height = 100
         self.font = main_font
         self._current_text = ""
-        self._index = 0  
+        self._index = 0
         self._last_update = pygame.time.get_ticks()  
         self._speed = 100  
         self._wait = False
         self._wait_counter = 0
         self._counter = 0
         self._stop = False
+        self._now = 0
+        self._last_update = 0
 
     def update(self):
         now = pygame.time.get_ticks()
+
         if not self._stop:
             if not self._wait and not self._stop:
                 if self._index < len(self._words) and now - self._last_update > self._speed:

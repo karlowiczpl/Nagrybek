@@ -41,7 +41,6 @@ class Enemy(Movment):
             
             
     def move_towards_target(self, target_x, target_y):
-        # Sprawdzamy, w którą stronę AI ma się ruszyć w osi X
         if self.x < target_x:
             self.walk_right()
         elif self.x > target_x:
