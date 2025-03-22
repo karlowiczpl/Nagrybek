@@ -4,7 +4,7 @@ from .hp import Hp, HitBox
 from .movment import Movment
 from .bullet import Bullet
 from .motion_animation import EnemyAnimation
-from .singleton import gl_player
+from .singleton import gl_player, time_freeze
 
 from const import(
     CONF_PLAYER_HEIGHT,
@@ -28,6 +28,7 @@ class Enemy(Movment, EnemyAnimation):
         self._bullets = []
         self._bullet_delay = 0
         self._hitbox = HitBox(97, 200, window)
+        self._freeze = True
         for item in self.walkLeftx:
             self.walkLeft.append(pygame.transform.scale(item, (CONF_PLAYER_WIDTH,CONF_PLAYER_HEIGHT)))
         for item in self.walkRightx:
@@ -68,6 +69,11 @@ class Enemy(Movment, EnemyAnimation):
             self.walk_left()
 
     def draw(self):
+        if time_freeze:
+            self._vel = 3
+        else:
+            self._vel = 7
+
         if not self._kill:
             self.update()
             self._hp.draw()

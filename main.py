@@ -12,6 +12,7 @@ window = pygame.display.set_mode()
 player = Player(window)
 
 singleton.gl_player.append(player)
+singleton.timer_delay.append(23)
 
 selected_object = None
 
@@ -28,7 +29,7 @@ selected_object = fight
 
 isRun = True
 while isRun:
-    pygame.time.delay(23)
+    pygame.time.delay(singleton.timer_delay[0])
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             isRun = False

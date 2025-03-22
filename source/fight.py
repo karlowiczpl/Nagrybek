@@ -4,12 +4,8 @@ from const import (
 )
 from .dialogue import Dialog
 from .enemy import Enemy
-from .singleton import enemies, gl_player
+from .singleton import timer_delay, enemies, time_freeze
 
-
-# dl1 = "Nie wiem, kim jesteś, ale jeśli myślisz, że mnie pokonasz, to się grubo mylisz. Twoje dni są policzone."
-# dl2 = "Ha! Tylko ty to widzisz. Myślisz, że jeden człowiek może powstrzymać całą armię? Zobaczymy, jak długo wytrzymasz."
-# dl3 = "Nie jestem sam. Moje serce bije dla tych, których chronię. A ty? Jesteś tylko pionkiem w grze, której nie rozumiesz."
 dl1 = "Nie wiem, kim jesteś"
 dl2 = "Ha! Tylko ty to widzisz"
 dl3 = "Nie jestem sam. Moje "
@@ -33,10 +29,18 @@ class Fight:
         self._dialog_time = False
         self._dialog_counter = 0
         self._enemy_hit = False
+        self._time_frezze_delay = 0
+        self._time_frezze = False
 
     def draw(self):
-        if not self._dialog_time:
+        if self._time_frezze:
+            self._time_frezze_delay += 1
 
+        if self._time_frezze_delay == 40:
+            time_freeze[0] = False
+            self._time_frezze_delay = 0
+
+        if not self._dialog_time:
             background = pygame.transform.scale(fight_bg, (self._info.current_w,self._info.current_h))
             self._win.blit(background, (0,0))
             self._player.draw()
@@ -69,6 +73,9 @@ class Fight:
                 self._player.stand()
             if key[pygame.K_SPACE]:
                 self._player.bullet()
+            if key[pygame.K_t]:
+                time_freeze[0] = True
+                self._time_frezze = True
 
     def handle_event(self, event):
         pass
