@@ -1,11 +1,10 @@
 import pygame
-
 from const import (
     fight_bg
 )
 from .dialogue import Dialog
 from .enemy import Enemy
-from .singleton import enemies
+from .singleton import enemies, gl_player
 
 
 # dl1 = "Nie wiem, kim jesteś, ale jeśli myślisz, że mnie pokonasz, to się grubo mylisz. Twoje dni są policzone."
@@ -17,6 +16,7 @@ dl3 = "Nie jestem sam. Moje "
 
 class Fight:
     def __init__(self, window, player):
+
         self._win = window
         self._info = pygame.display.Info()
         self._player = player

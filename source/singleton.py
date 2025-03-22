@@ -1,1 +1,2 @@
 enemies = []
+gl_player = []

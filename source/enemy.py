@@ -4,6 +4,7 @@ from .hp import Hp, HitBox
 from .movment import Movment
 from .bullet import Bullet
 from .motion_animation import EnemyAnimation
+from .singleton import gl_player
 
 from const import(
     CONF_PLAYER_HEIGHT,
@@ -34,15 +35,30 @@ class Enemy(Movment, EnemyAnimation):
         self.standing = pygame.transform.scale(self.standing, (CONF_PLAYER_WIDTH,CONF_PLAYER_HEIGHT))
         self._hp = Hp(window, 100, 100)
         self._kill = False
+        self._bullet_counter = 0
 
     def kill(self):
         self._kill = True
-    def bullet(self, enemy):
+
+    def update(self):
+        self._bullet_counter += 1
+        if self._bullet_counter == 100:
+            self.bullet(not (gl_player[0]._x > self._x))
+            self._bullet_counter = 0
+
+        if (gl_player[0]._x > self._x):
+            self.walk_left()
+        else:
+            self.walk_right()
+
+    def bullet(self, left=None):
         if self._bullet_delay > 10:
-            self._bullets.append(Bullet(self._x, self._y, self._win, self._left))
+            if left:
+                self._bullets.append(Bullet(self._x, self._y, self._win, left))
+            else:
+                self._bullets.append(Bullet(self._x, self._y, self._win, self._left))
             self._bullet_delay = 0
-            self._enemy = enemy
-            
+
             
     def move_towards_target(self, target_x, target_y):
         if self.x < target_x:
@@ -52,6 +68,7 @@ class Enemy(Movment, EnemyAnimation):
 
     def draw(self):
         if not self._kill:
+            self.update()
             self._hp.draw()
             if self._jump:
                 if self._jump_counter > 0:
@@ -77,11 +94,6 @@ class Enemy(Movment, EnemyAnimation):
                 self._motion_counter = 0
 
             for bullet in self._bullets:
-                if bullet._y - 5 < self._enemy._hitbox[1] + self._enemy._hitbox[3] and bullet._y + 5  > self._enemy._hitbox[1]:
-                    if bullet._x + 5 > self._enemy._hitbox[0] and bullet._x  - 5> self._enemy._hitbox[0] + self._enemy._hitbox[2]:
-                        self._enemy.hit()
-                        self._bullets.pop(self._bullets.index(bullet))
-
                 bullet.draw()
 
             self._after_jump += 1

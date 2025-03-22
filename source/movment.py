@@ -3,13 +3,14 @@ import pygame
 from .motion_animation import Animation, PlayerAnimation
 
 class Movment:
+    _vel = 20
 
     def walk_right(self):
         if self._x > 0:
             self._left = True
             self._right = False
 
-            self._x -= 20
+            self._x -= self._vel
             self._last_postion = False
             self._motion_counter += 1
 
@@ -18,7 +19,7 @@ class Movment:
             self._left = False
             self._right = True
 
-            self._x += 20
+            self._x += self._vel
             self._motion_counter += 1
             self._last_postion = True
 
