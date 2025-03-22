@@ -18,7 +18,7 @@ from const import(
 class Player(Movment, PlayerAnimation):
     def __init__(self, window):
         self._x = 50
-        self._y = 400
+        self._y = 750
         self._win = window
         self._left = False
         self._right = False

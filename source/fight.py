@@ -17,7 +17,7 @@ class Fight:
         self._info = pygame.display.Info()
         self._player = player
         self._enemy = Enemy(self._win, 1000,600)
-        platforms.append(Platform(300, 600, 600, 100, window, pygame.image.load("images/platform/platform.png")))
+        platforms.append(Platform(300, 600, 600, 40, window, pygame.image.load("images/platform/platform.png")))
         enemies.append(self._enemy)
         self._dialog = [
             Dialog(dl1, "RIPPER", window),

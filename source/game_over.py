@@ -1,9 +1,5 @@
 import pygame
 
-from const import (
-    bg,
-    main_font,
-)
 from .singleton import gl_player
 
 class GameOver:
@@ -34,8 +30,6 @@ class GameOver:
 
 
         self._player._live = False
-        # background = pygame.transform.scale(bg, (self._info.current_w,self._info.current_h))
-        # self._win.blit(background, (0,0))
         main_font = pygame.font.Font("./font/main/Tektur-Bold.ttf", self._counter)
 
         dialog_x = (self._win.get_width() - 100) // 2

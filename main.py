@@ -21,6 +21,7 @@ start = Start(window, player, singleton.ptr[0])
 singleton.enemies.append(Enemy(window, 100, 200))
 singleton.enemies.append(Enemy(window, 150, 200))
 singleton.enemies.append(Enemy(window, 80, 200))
+counter = 0
 
 start = Start(window, player, singleton.enemies)
 fight = Fight(window, player)
@@ -39,6 +40,10 @@ while isRun:
 
     key = pygame.key.get_pressed()
     singleton.ptr[0].key(key)
+    if counter == 190:
+        singleton.timer_delay[0] -= 1
+        counter = 0
+    counter += 1
     
     if not singleton.ptr[0].draw():
         selected_object = Fight(window, player)

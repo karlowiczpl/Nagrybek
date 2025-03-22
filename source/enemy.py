@@ -61,7 +61,7 @@ class Enemy(Movment, EnemyAnimation):
 
     def bullet(self, left=None):
             if left:
-                self._bullets.append(EnemyBullet(self._x, self._y, self._win, left))
+                self._bullets.append(EnemyBullet(self._x , self._y, self._win, left))
             else:
                 self._bullets.append(EnemyBullet(self._x, self._y, self._win, self._left))
             self._bullet_delay = 0

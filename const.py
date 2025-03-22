@@ -12,6 +12,8 @@ pygame.font.init()
 bg = pygame.image.load("images/bg.png")
 fight_bg = pygame.image.load("images/fight_bg.png")
 bullet = pygame.image.load("images/bullet.png")
+ground = pygame.image.load("images/ground1.png")
+
 main_font = pygame.font.Font("font/main/Tektur-Bold.ttf", 48)
 # button = [
 #     [pygame.image.load("img/button_clicked1.jpg"),pygame.image.load("img/button_unclicked1.jpg")],

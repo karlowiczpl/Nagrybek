@@ -6,6 +6,7 @@ from const import (
 )
 from .dialogue import Dialog
 from .fight import Fight
+from .singleton import ptr
 
 class Button:
     def __init__(self, x, y, text, color, window, border_radius=10):
@@ -73,7 +74,8 @@ class Start:
                 button.draw()
         else:
             if self._dialog_count >= len(self._dialog):
-                return False
+                ptr[0] = Fight(self._win, self._player)
+                return
 
             background = pygame.transform.scale(bg, (self._info.current_w,self._info.current_h))
             self._win.blit(background, (0,0))
