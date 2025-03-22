@@ -36,6 +36,7 @@ class Enemy(Movment, EnemyAnimation):
         self._hp = Hp(window, 100, 100)
         self._kill = False
         self._bullet_counter = 0
+        self._vel = 7
 
     def kill(self):
         self._kill = True
