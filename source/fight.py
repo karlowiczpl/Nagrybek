@@ -5,7 +5,8 @@ from const import (
 from .dialogue import Dialog
 from .enemy import Enemy
 from .platform import Platform
-from .singleton import timer_delay, enemies, time_freeze, platforms
+from .singleton import timer_delay, enemies, time_freeze, platforms, items
+from .items import Item
 
 dl1 = "Nie wiem, kim jesteś"
 dl2 = "Ha! Tylko ty to widzisz"
@@ -32,8 +33,10 @@ class Fight:
         self._enemy_hit = False
         self._time_frezze_delay = 0
         self._time_frezze = False
+        items.append(Item(50 , 50, self._win, self._player))
 
     def draw(self):
+
         if time_freeze[0]:
             self._time_frezze_delay += 1
 
@@ -66,6 +69,9 @@ class Fight:
             
             for i in platforms:
                 i.draw()
+
+        items[0].draw()
+
         return True
 
     def key(self, key):

@@ -49,6 +49,9 @@ class Player(Movment, PlayerAnimation):
         if not self._hp.hp_down(1):
             ptr[0] = GameOver(self._win)
 
+    def hp_up(self):
+        self._hp.hp_down(-1)
+
     def bullet(self):
         if self._bullet_delay > 10:
             if not self._left and not self._right:
