@@ -33,7 +33,7 @@ class Fight:
         self._time_frezze = False
 
     def draw(self):
-        if self._time_frezze:
+        if time_freeze[0]:
             self._time_frezze_delay += 1
 
         if self._time_frezze_delay == 40:

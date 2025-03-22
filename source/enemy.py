@@ -91,10 +91,10 @@ class Enemy(Movment, EnemyAnimation):
 
             if time_freeze[0]:
                 if self._left:
-                    self._win.blit(self.walkLeft[self._motion_counter // 3], (self._x, self._y))
+                    self._win.blit(self.walkLeft[self._time_frezze_timer // 5], (self._x, self._y))
                 elif self._right:
                     self._win.blit(
-                        self.walkRight[self._motion_counter // 3], (self._x, self._y)
+                        self.walkRight[self._time_frezze_timer// 5], (self._x, self._y)
                     )
                 else:
                     self._win.blit(self.standing, (self._x, self._y))
@@ -111,12 +111,13 @@ class Enemy(Movment, EnemyAnimation):
             if self._motion_counter == 26:
                 self._motion_counter = 0
 
-            # if self._time_frezze_timer == 52:
-                # self._``
+            if self._time_frezze_timer == 52:
+                self._time_frezze_timer = 0
 
             for bullet in self._bullets:
                 bullet.draw()
 
+            self._time_frezze_timer += 1
             self._after_jump += 1
             self._bullet_delay += 1
             self._hitbox.update(self._x + 50, self._y + 53)
