@@ -57,20 +57,10 @@ class Player(Movment, PlayerAnimation):
                 self._bullet_delay = 0
 
     def draw(self):
+        self.move()
+
         if self._live:
             self._hp.draw()
-
-            if self._jump:
-                if self._jump_counter > 0:
-                    self._y += (self._jump_counter**2)  
-                else:
-                    self._y -= (self._jump_counter**2)  
-
-                self._jump_counter += 1
-
-                if self._jump_counter == 11:
-                    self._jump = False  
-                    self._jump_counter = -10  
 
             if self._left:
                 self._win.blit(self.walkLeft[self._motion_counter // 1], (self._x, self._y))
@@ -102,3 +92,16 @@ class Player(Movment, PlayerAnimation):
                 self._dodge = False  
                 self._dodge_counter = 0  
                 
+    def move(self):
+        if self._live:
+            if self._jump:
+                if self._jump_counter > 0:
+                    self._y += (self._jump_counter**2)  
+                else:
+                    self._y -= (self._jump_counter**2)  
+
+                self._jump_counter += 1
+
+                if self._jump_counter == 11:
+                    self._jump = False  
+                    self._jump_counter = -10  
