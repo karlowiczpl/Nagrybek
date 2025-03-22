@@ -23,12 +23,6 @@ class Movment:
             self._motion_counter += 1
             self._last_postion = True
 
-    def dodge(self):
-        if self.dodge is False: 
-            self._hitbox = (0,0,0,0)
-            self.dodge = True
-        else:
-            self._hitbox = (self._x + 20 , self._y, 28, 60)
 
     def stand(self):
         self._left = False
