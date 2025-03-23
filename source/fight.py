@@ -56,9 +56,9 @@ class Fight:
         
         self.ufos_1 =[
             UFO(100,150, gl_player[0]._win),
-            UFO(300,150, gl_player[0]._win),
-            UFO(500,150, gl_player[0]._win),
-            UFO(700,150, gl_player[0]._win)
+            # UFO(300,150, gl_player[0]._win),
+            # UFO(500,150, gl_player[0]._win),
+            # UFO(700,150, gl_player[0]._win)
     
             ]
 

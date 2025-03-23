@@ -25,7 +25,7 @@ class Blast:
             transformed = pygame.transform.scale(self._shit, (100,50))
             self._win.blit(transformed, (self._x, self._y))
             self._hitbox.update(self._x, self._y)
-            self._hitbox.draw()
+            # self._hitbox.draw()
         
         self._y += 10
 
