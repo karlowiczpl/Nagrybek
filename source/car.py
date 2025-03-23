@@ -1,7 +1,7 @@
 import pygame
 
 from const import car
-from .singleton import gl_player
+from .singleton import gl_player, isplaying
 from .hp import HitBox
 
 class Car:
@@ -16,14 +16,24 @@ class Car:
             self._car_img.append(pygame.transform.scale(c, (300,150)))
 
     def draw(self):
+        if not isplaying[1] and not isplaying[2]:
+            isplaying[1] = True
+            channel = pygame.mixer.Channel(1)
+            sound = pygame.mixer.Sound("images/sounds/car.mp3")
+            channel.play(sound)
         self._counter += 1
         self._win.blit(self._car_img[self._counter], (self._x, self._y))
         self._x += 40
+        
+        
+        if isplaying[2]:
+            channel.stop()
 
         if self._counter == 3:
             self._counter = 0
 
         if self._x > 5000:
+            isplaying[1] = False
             self._x = -1000
 
         if gl_player[0]._hitbox.isTouching(self._hitbox):

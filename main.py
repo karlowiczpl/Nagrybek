@@ -9,6 +9,7 @@ from source.game_over import GameOver
 
 pygame.init()
 pygame.mixer.init()
+pygame.mixer.music.set_volume(1)
 
 
 window = pygame.display.set_mode()
@@ -29,7 +30,7 @@ start = Start(window, player, singleton.enemies)
 fight = Fight(window, player)
 game_over = GameOver(window)
 
-singleton.ptr[0] = fight
+singleton.ptr[0] = start
 
 isRun = True
 while isRun:

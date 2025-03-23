@@ -2,7 +2,7 @@ import pygame
 import random
 
 from .hp import HitBox
-from .singleton import gl_player, items
+from .singleton import gl_player, items, isplaying
 from const import xdskajdksa
 
 class Item:
@@ -31,6 +31,7 @@ class Item:
             self._animation_count += 1
 
         if self._hitbox.isTouching(gl_player[0]._hitbox):
+            isplaying[0] = False
             self._hide = True
             rand1 = random.randint(100, 1500)
             rand2 = random.randint(100, 100)
@@ -40,4 +41,18 @@ class Item:
         if not self._hide:
             self._win.blit(self._img[self._number], (self._x-50, self._y-50))
             self._hitbox.update(self._x -50, self._y-50)
+            if  not isplaying[0] and not isplaying[2]:
+                isplaying[0] = True
+                channel = pygame.mixer.Channel(0)
+                if self._number==0:
+                    sound = pygame.mixer.Sound("images/sounds/6zer.mp3")
+                    channel.play(sound)
+                elif self._number==1:
+                    sound = pygame.mixer.Sound("images/sounds/redbull.mp3")
+                    channel.play(sound)
+                elif self._number==2:
+                    sound = pygame.mixer.Sound("images/sounds/szlugi.mp3")
+                    channel.play(sound)
+                
+                
             # self._hitbox.draw()

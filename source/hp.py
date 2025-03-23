@@ -35,6 +35,22 @@ class Hp:
             return False
         
         return True
+    
+class Score:
+    def __init__(self, window):
+        self._win = window
+        self._score = 0
+        self._font = pygame.font.Font(None, 36)
+        self._text = self._font.render("Score: " + str(self._score), True, (255, 255, 255))
+        self._textRect = self._text.get_rect()
+        self._textRect.center = (1600, 50)
+
+    def draw(self):
+        self._win.blit(self._text, self._textRect)
+
+    def update(self, score):
+        self._score += score
+        self._text = self._font.render("Score: " + str(self._score), True, (255, 255, 255))
 
 class HitBox:
     def __init__(self, width, height, window):

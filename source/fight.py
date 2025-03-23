@@ -50,7 +50,7 @@ class Fight:
 
     def draw(self):
         if self._bird_delay > self._bird_spawn_time:
-            postion = random.randint(200,650)
+            postion = random.randint(200, 350)
             self._bird_spawn_time = random.randint(20,120)
             self._birds.append(Bird(postion, self._win))
             self._bird_delay = 0

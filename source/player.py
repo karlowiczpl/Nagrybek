@@ -4,16 +4,17 @@ from .hp import Hp
 from .movment import Movment
 from .bullet import Bullet
 from .motion_animation import PlayerAnimation
-from .hp import HitBox
+from .hp import HitBox,Score
 from .singleton import enemies, ptr
 from .game_over import GameOver
 from .platform import Platform
+
 from .singleton import enemies,platforms
 
 from const import(
     CONF_PLAYER_HEIGHT,
     CONF_PLAYER_WIDTH,
-    shoting,
+    shoting
 )
 
 class Player(Movment, PlayerAnimation):
@@ -32,6 +33,7 @@ class Player(Movment, PlayerAnimation):
         self._after_jump = 40
         self._bullets = []
         self._bullet_delay = 0
+        self._score = Score(window)
         self._hitbox = HitBox(100, 197, self._win)
         self._live = True
         self._fall_counter = 0
@@ -55,6 +57,7 @@ class Player(Movment, PlayerAnimation):
     def hit(self):
         if not self._hp.hp_down(1):
             ptr[0] = GameOver(self._win)
+            
 
     def hp_up(self):
         self._hp.hp_down(-1)
@@ -122,6 +125,7 @@ class Player(Movment, PlayerAnimation):
     def draw(self):
         if self._live:
             self._hp.draw()
+            self._score.draw()
             self.move_y()
 
             if not self._shot:

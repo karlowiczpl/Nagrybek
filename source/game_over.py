@@ -1,7 +1,7 @@
 import pygame
 import time
 
-from .singleton import gl_player
+from .singleton import gl_player, isplaying
 
 
 WHITE = (255, 255, 255)
@@ -42,6 +42,16 @@ class GameOver:
   
 
         main_font = pygame.font.Font("./font/main/bytesize/pixel.ttf", self._counter) 
+        
+        
+        if not isplaying[2]:
+            pygame.mixer.stop()
+            isplaying[2] = True
+            isplaying[1] = True
+            isplaying[0] = True
+            channel = pygame.mixer.Channel(2)
+            sound = pygame.mixer.Sound("images/sounds/chuj.mp3")
+            channel.play(sound)
 
 
         text_surface = main_font.render("You died", True, (self._red_intensity, 0, 0))  
@@ -54,3 +64,5 @@ class GameOver:
 
         if self._fade_alpha >= 255:
             self._stop = True
+            isplaying[2] = False
+            
