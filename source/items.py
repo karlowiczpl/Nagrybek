@@ -3,6 +3,7 @@ import random
 
 from .hp import HitBox
 from .singleton import gl_player, items
+from const import xdskajdksa
 
 class Item:
     def __init__(self, x, y, window, player):
@@ -12,10 +13,14 @@ class Item:
         self._vel = (1500 - y) / 100 
         self._hitbox = HitBox(100, 100, window)
         self._player = player
+        self._img = []
+        for item in xdskajdksa:
+            self._img.append(pygame.transform.scale(item, (100,100)))
 
         self._animation_count = 0
         self._animation = True
         self._hide = False
+        self._number = random.randint(0,2)
 
     def draw(self):
         if self._animation:
@@ -33,6 +38,6 @@ class Item:
             self._player.hp_up()
 
         if not self._hide:
-            pygame.draw.circle(self._win, (0x00,0x00,0x00), (self._x, self._y), 50)
+            self._win.blit(self._img[self._number], (self._x-50, self._y-50))
             self._hitbox.update(self._x -50, self._y-50)
-            self._hitbox.draw()
+            # self._hitbox.draw()

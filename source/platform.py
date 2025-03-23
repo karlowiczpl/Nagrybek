@@ -8,6 +8,7 @@ class Platform(Movment, PlatformaAnimation):
     def __init__(self, x, y, width, height, window, model, is_moving=False, speed=5):
         self._x = x
         self._y = y
+
         self._width = width
         self._height = height
         self._window = window

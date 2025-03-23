@@ -9,6 +9,12 @@ CONF_FLOR_LEVEL = 200
 
 pygame.font.init()
 
+xdskajdksa= [
+    pygame.image.load("images/mamona.png"),
+    pygame.image.load("images/redbull.png"),
+    pygame.image.load("images/szlugi.png"),
+]
+shoting = pygame.image.load("images/R1_pistol_f.png")
 button1 = pygame.image.load("images/Play_button.png")
 button2 = pygame.image.load("images/Credits_button.png")
 bg = pygame.image.load("images/bg.png")

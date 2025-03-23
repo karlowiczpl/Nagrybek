@@ -1,5 +1,6 @@
 import pygame
 import random
+from .singleton import shits
 from .circle import Circle
 from .bird import Bird
 from const import (
@@ -17,7 +18,6 @@ dl2 = "Ha! Tylko ty to widzisz"
 dl3 = "Nie jestem sam. Moje "
 
 PURPLE = (128, 0, 128)
-
 
 class Fight:
     def __init__(self, window, player):
@@ -54,7 +54,9 @@ class Fight:
             self._bird_spawn_time = random.randint(20,120)
             self._birds.append(Bird(postion, self._win))
             self._bird_delay = 0
-
+            
+        
+    
         self._bird_delay += 1
 
         if time_freeze[0]:
@@ -99,6 +101,9 @@ class Fight:
         items[0].draw()
         for bird in self._birds:
             bird.draw()
+            
+        for shit in shits:
+            shit.draw()
                 
         if self._time.draw(self._player._x, self._player._y):
             time_freeze[0] = False

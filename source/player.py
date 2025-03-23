@@ -13,6 +13,7 @@ from .singleton import enemies,platforms
 from const import(
     CONF_PLAYER_HEIGHT,
     CONF_PLAYER_WIDTH,
+    shoting,
 )
 
 class Player(Movment, PlayerAnimation):
@@ -42,11 +43,14 @@ class Player(Movment, PlayerAnimation):
             self.walkLeft.append(pygame.transform.scale(item, (CONF_PLAYER_WIDTH,CONF_PLAYER_HEIGHT)))
         for item in self.walkRightx:
             self.walkRight.append(pygame.transform.scale(item, (CONF_PLAYER_WIDTH,CONF_PLAYER_HEIGHT)))
+        self._shoting = pygame.transform.scale(shoting, (CONF_PLAYER_WIDTH,CONF_PLAYER_HEIGHT))
 
         self.standing = pygame.transform.scale(self.standing, (CONF_PLAYER_WIDTH,CONF_PLAYER_HEIGHT))
         self._hp = Hp(window, 100, 100)
         self._last_postion = True
         self._touching = False
+        self._shot_counter = 0
+        self._shot = False
 
     def hit(self):
         if not self._hp.hp_down(1):
@@ -56,6 +60,7 @@ class Player(Movment, PlayerAnimation):
         self._hp.hp_down(-1)
 
     def bullet(self):
+        self._shot = 1
         if self._bullet_delay > 10:
             if not self._left and not self._right:
                 self._bullets.append(Bullet(self._x, self._y, self._win, not self._last_postion))
@@ -119,12 +124,20 @@ class Player(Movment, PlayerAnimation):
             self._hp.draw()
             self.move_y()
 
-            if self._left:
-                self._win.blit(self.walkLeft[self._motion_counter // 1], (self._x, self._y))
-            elif self._right:
-                self._win.blit(self.walkRight[self._motion_counter // 1], (self._x, self._y))
+            if not self._shot:
+                if self._left:
+                    self._win.blit(self.walkLeft[self._motion_counter // 1], (self._x, self._y))
+                elif self._right:
+                    self._win.blit(self.walkRight[self._motion_counter // 1], (self._x, self._y))
+                else:
+                    self._win.blit(self.standing, (self._x, self._y))
             else:
-                self._win.blit(self.standing, (self._x, self._y))
+                self._win.blit(self._shoting, (self._x, self._y))
+
+                self._shot += 1
+
+            if self._shot > 5:
+                self._shot = 0
 
             if self._motion_counter == 8:
                 self._motion_counter = 0
