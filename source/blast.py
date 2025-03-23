@@ -5,7 +5,7 @@ from const import bullet
 from .hp import HitBox
 from .singleton import gl_player, enemies
 
-class Shit:
+class Blast:
     def __init__(self, x, y, win):
         self._x = x
         self._y = y
@@ -32,7 +32,7 @@ class Shit:
     def hide(self):
         self._hide = True
 
-class EnemyShit(Shit):
+class EnemyBlast(Blast):
     def __init__(self, x, y, win):
         super().__init__(x, y, win)
         self._vel = 20

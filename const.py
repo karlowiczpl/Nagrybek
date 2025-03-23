@@ -59,3 +59,5 @@ bird = [
     pygame.image.load("images/flappy_bird/skeleton-01_fly_14.png"),
     pygame.image.load("images/flappy_bird/skeleton-01_fly_15.png"),
 ]
+
+

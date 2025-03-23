@@ -18,14 +18,17 @@ class GameOver:
         self._fade_alpha = 0  
         self._start_time = time.time()  
         self._action_taken = False  
+        self._goku = pygame.image.load("images/goku.jpg")
         self._red_intensity = 0 
 
     def key(self, event):
         pass
 
     def draw(self):
+        
+        background = background = pygame.transform.scale(self._goku, (self._win.get_width(),self._win.get_height()))
 
-        self._win.fill(BLACK)  
+        self._win.blit(background, (0, 0))
 
         elapsed_time = time.time() - self._start_time
 

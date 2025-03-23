@@ -48,7 +48,7 @@ class Player(Movment, PlayerAnimation):
         self._shoting = pygame.transform.scale(shoting, (CONF_PLAYER_WIDTH,CONF_PLAYER_HEIGHT))
 
         self.standing = pygame.transform.scale(self.standing, (CONF_PLAYER_WIDTH,CONF_PLAYER_HEIGHT))
-        self._hp = Hp(window, 100, 100)
+        self._hp = Hp(window, 100, 30)
         self._last_postion = True
         self._touching = False
         self._shot_counter = 0

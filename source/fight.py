@@ -1,11 +1,14 @@
 import pygame
 import random
-from .singleton import shits
+from .singleton import shits,blasts
 from .circle import Circle
 from .bird import Bird
 from const import (
     fight_bg
 )
+
+from .ufo import UFO
+from .singleton import gl_player
 from .dialogue import Dialog
 from .enemy import Enemy
 from .platform import Platform
@@ -47,6 +50,17 @@ class Fight:
         self._time = Circle(self._player._x, self._player._y, (0,0,0), self._win, 80)
         self._time._off = True
         self._car = Car(window)
+        
+        
+        
+        
+        self.ufos_1 =[
+            UFO(100,150, gl_player[0]._win),
+            UFO(300,150, gl_player[0]._win),
+            UFO(500,150, gl_player[0]._win),
+            UFO(700,150, gl_player[0]._win)
+    
+            ]
 
     def draw(self):
         if self._bird_delay > self._bird_spawn_time:
@@ -58,6 +72,10 @@ class Fight:
         
     
         self._bird_delay += 1
+        
+        
+        
+
 
         if time_freeze[0]:
             self._time_frezze_delay += 1
@@ -105,6 +123,12 @@ class Fight:
         for shit in shits:
             shit.draw()
                 
+        for blast in blasts:
+            blast.draw()
+        
+        
+        for ufo in self.ufos_1:
+            ufo.draw()
         if self._time.draw(self._player._x, self._player._y):
             time_freeze[0] = False
         

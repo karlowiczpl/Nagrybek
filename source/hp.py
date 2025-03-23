@@ -7,7 +7,7 @@ from const import(
 class Hp:
     def __init__(self, window, max_hp, current_hp):
         self._win = window
-        self.max_hp = max_hp  
+        self.max_hp = 3
         self.current_hp = current_hp  
         self.hp_bar_size = 30  
         self.hp_bar_gap = 5  
