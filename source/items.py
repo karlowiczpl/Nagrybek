@@ -41,6 +41,7 @@ class Item:
         if not self._hide:
             self._win.blit(self._img[self._number], (self._x-50, self._y-50))
             self._hitbox.update(self._x -50, self._y-50)
+            gl_player[0]._score.update(250)
             if  not isplaying[0] and not isplaying[2]:
                 isplaying[0] = True
                 channel = pygame.mixer.Channel(0)
