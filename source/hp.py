@@ -27,6 +27,11 @@ class Hp:
         self._hp_delay += 1
 
     def hp_down(self, hp_count):
+        Channel = pygame.mixer.Channel(2)
+        sound = pygame.mixer.Sound("images/sounds/hit.mp3")
+        Channel.play(sound)
+        
+    
         if self._hp_delay > 10:
             self._hp_count -= hp_count
             self._hp_delay = 0

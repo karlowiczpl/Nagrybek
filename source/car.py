@@ -32,7 +32,7 @@ class Car:
         if self._counter == 3:
             self._counter = 0
 
-        if self._x > 10000:
+        if self._x > 200000:
             isplaying[1] = False
             self._x = -1000
 
